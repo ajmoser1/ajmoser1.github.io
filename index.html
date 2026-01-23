@@ -31,7 +31,7 @@
     <style>
         /* 
           CSS SYNTAX:
-          - Comments use /* */
+          - Comments use /* 
           - selector { property: value; }
           - Example: h1 { color: blue; } means "make all h1 headings blue"
         */
@@ -64,6 +64,8 @@
             /* linear-gradient creates a smooth color transition */
             min-height: 100vh;
             /* vh = viewport height, ensures page is at least full screen height */
+            padding-top: 70px;
+            /* Adds space at top so content isn't hidden behind fixed navigation bar */
         }
         
         /* 
@@ -265,6 +267,94 @@
         }
         
         /* 
+          NAVIGATION BAR:
+          - position: fixed keeps it at the top when scrolling
+          - top: 0 positions it at the very top
+          - width: 100% makes it span the full width
+          - z-index: 1000 ensures it appears above other content
+          - background: gives it a solid background so content doesn't show through
+          - box-shadow: adds a subtle shadow for depth
+        */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            /* rgba = red, green, blue, alpha (transparency) */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            /* z-index controls stacking order (higher = on top) */
+        }
+        
+        /* 
+          NAVIGATION CONTAINER:
+          - max-width: limits width to match your content
+          - margin: 0 auto centers it
+          - display: flex creates a flexible layout
+          - justify-content: space-between spreads items apart
+          - align-items: center vertically centers items
+        */
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        /* 
+          NAVIGATION LINKS LIST:
+          - display: flex arranges links horizontally
+          - gap: adds space between links
+          - list-style: none removes bullet points
+        */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* 
+          NAVIGATION LINK ITEMS:
+          - No special styling needed, just container for links
+        */
+        .nav-links li {
+            margin: 0;
+            padding: 0;
+            background: none;
+            border-radius: 0;
+        }
+        
+        /* 
+          NAVIGATION LINKS (ANCHOR TAGS):
+          - text-decoration: none removes underline
+          - color: sets link color
+          - font-weight: makes text slightly bold
+          - transition: smooth color change on hover
+          - padding: adds clickable area
+        */
+        .nav-links a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        /* 
+          NAVIGATION LINK HOVER:
+          - Changes color when mouse hovers over link
+        */
+        .nav-links a:hover {
+            color: #764ba2;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        /* 
           RESPONSIVE DESIGN:
           - @media queries apply styles only at certain screen sizes
           - This makes the site work well on mobile devices
@@ -283,6 +373,26 @@
             section {
                 padding: 20px;
             }
+            
+            /* 
+              MOBILE NAVIGATION:
+              - Stack links vertically on small screens
+              - Reduce gap between links
+            */
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+            
+            /* More space needed for stacked nav on mobile */
+            body {
+                padding-top: 150px;
+            }
         }
     </style>
 </head>
@@ -293,6 +403,40 @@
       - Contains all visible content on your webpage
       - Everything users see goes here
     -->
+    
+    <!-- 
+      NAVIGATION BAR:
+      - <nav> is a semantic HTML5 element for navigation
+      - Contains links that jump to different sections of the page
+      - Uses anchor links (#section-id) to jump to sections
+    -->
+    <nav>
+        <div class="nav-container">
+            <!-- 
+              LOGO/BRAND:
+              - Can be your name or a logo
+              - Links back to top of page with href="#"
+            -->
+            <a href="#" style="text-decoration: none; color: #667eea; font-weight: bold; font-size: 1.2em;">
+                Alex Moser
+            </a>
+            
+            <!-- 
+              NAVIGATION LINKS:
+              - <ul> creates an unordered list of links
+              - Each <a> (anchor) tag links to a section using #id
+              - href="#about" jumps to the element with id="about"
+            -->
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <!-- Links to <section id="about"> -->
+                <li><a href="#facts">Me</a></li>
+                <!-- Links to <section id="facts"> -->
+                <li><a href="#projects">Projects</a></li>
+                <!-- Links to <section id="projects"> -->
+            </ul>
+        </div>
+    </nav>
     
     <div class="container">
         <!-- 
@@ -418,7 +562,7 @@
         /* 
           JAVASCRIPT BASICS:
           - // for single-line comments
-          - /* */ for multi-line comments
+          - /*  for multi-line comments
           - Functions are reusable blocks of code
           - Variables store data (let, const, var)
         */
@@ -473,6 +617,51 @@
         window.addEventListener('load', function() {
             console.log('Portfolio website loaded!');
             // You can add code here that runs when page loads
+        });
+        
+        /* 
+          SMOOTH SCROLLING:
+          - This makes the page scroll smoothly when clicking nav links
+          - Instead of jumping instantly, it animates the scroll
+        */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            /* 
+              querySelectorAll finds all links starting with #
+              forEach loops through each link
+            */
+            anchor.addEventListener('click', function (e) {
+                /* 
+                  e.preventDefault() stops the default jump behavior
+                  We'll replace it with smooth scrolling
+                */
+                e.preventDefault();
+                
+                /* 
+                  Get the target section's id from the href
+                  href="#about" -> target = "#about"
+                */
+                const target = this.getAttribute('href');
+                
+                if (target !== '#') {
+                    /* 
+                      Find the target element on the page
+                      document.querySelector('#about') finds <section id="about">
+                    */
+                    const targetElement = document.querySelector(target);
+                    
+                    if (targetElement) {
+                        /* 
+                          scrollIntoView smoothly scrolls to the element
+                          behavior: 'smooth' creates the animation
+                          block: 'start' aligns element to top of viewport
+                        */
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
         });
         
         /* 
