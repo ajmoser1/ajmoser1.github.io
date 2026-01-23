@@ -56,6 +56,10 @@
           - color: text color
           - background: page background
         */
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -80,6 +84,60 @@
             background: white;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             /* box-shadow adds a subtle shadow effect */
+        }
+        
+        /* 
+          NAVIGATION BAR:
+          - Fixed at the top of the page
+          - Stays visible when scrolling
+          - Contains links to different sections
+        */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: color 0.3s;
+            padding: 5px 10px;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
         }
         
         /* 
@@ -283,6 +341,18 @@
             section {
                 padding: 20px;
             }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-links a {
+                font-size: 0.9em;
+            }
+            
+            .nav-logo {
+                font-size: 1.2em;
+            }
         }
     </style>
 </head>
@@ -293,6 +363,23 @@
       - Contains all visible content on your webpage
       - Everything users see goes here
     -->
+    
+    <!-- 
+      NAVIGATION BAR:
+      - <nav> is a semantic HTML5 element for navigation
+      - Contains links to different sections of the page
+      - Stays at the top when scrolling (sticky positioning)
+    -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Alex Moser</a>
+            <ul class="nav-links">
+                <li><a href="#about">Bio</a></li>
+                <li><a href="#facts">Interests</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
     
     <div class="container">
         <!-- 
