@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!-- 
+  HTML BASICS:
+  - This is the document type declaration. It tells the browser this is HTML5.
+  - Everything between <html> and </html> is your webpage content.
+-->
+<html lang="en">
+<head>
+    <!-- 
+      THE <head> SECTION:
+      - Contains metadata (information about the page, not visible content)
+      - Links to CSS, JavaScript, and other resources
+      - Sets the page title (shown in browser tab)
+    -->
+    <meta charset="UTF-8">
+    <!-- UTF-8 is the character encoding - allows special characters and emojis -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Makes the site responsive - works on mobile, tablet, and desktop -->
+    
+    <title>Moser Portfolio</title>
+    <!-- This appears in the browser tab -->
+    
+    <!-- 
+      CSS (Cascading Style Sheets):
+      - Styles define HOW your content looks (colors, fonts, layout, spacing)
+      - We're using a <style> tag to embed CSS directly in the HTML
+      - You could also put this in a separate .css file and link it with:
+        <link rel="stylesheet" href="styles.css">
+    -->
+    <style>
+        /* 
+          CSS SYNTAX:
+          - Comments use /* */
+          - selector { property: value; }
+          - Example: h1 { color: blue; } means "make all h1 headings blue"
+        */
+        
+        /* 
+          RESET & BASE STYLES:
+          - * is a universal selector (applies to all elements)
+          - margin: 0 and padding: 0 remove default browser spacing
+          - box-sizing: border-box makes sizing calculations easier
+        */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 
+          BODY STYLING:
+          - The <body> contains all visible content
+          - font-family: defines which fonts to use (with fallbacks)
+          - line-height: spacing between lines of text (1.6 = 60% extra space)
+          - color: text color
+          - background: page background
+        */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* linear-gradient creates a smooth color transition */
+            min-height: 100vh;
+            /* vh = viewport height, ensures page is at least full screen height */
+        }
+        
+        /* 
+          CONTAINER:
+          - max-width: limits how wide content can be (better readability)
+          - margin: 0 auto centers the container horizontally
+          - padding: adds space inside the container
+          - background: white background for content area
+        */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            /* box-shadow adds a subtle shadow effect */
+        }
+        
+        /* 
+          HEADER SECTION:
+          - text-align: centers the text
+          - padding: adds space around content (top/bottom left/right)
+          - border-bottom: adds a line under the header
+        */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: 40px;
+        }
+        
+        /* 
+          HEADING STYLES:
+          - h1 is the main heading (largest)
+          - color: sets text color
+          - margin-bottom: adds space below the heading
+        */
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        /* 
+          PARAGRAPH STYLING:
+          - font-size: sets text size
+          - color: slightly gray for less emphasis
+        */
+        p {
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        /* 
+          SECTION STYLING:
+          - Sections are logical divisions of content
+          - margin-bottom: adds space between sections
+        */
+        section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            /* border-radius rounds the corners */
+        }
+        
+        /* 
+          SECTION HEADINGS:
+          - h2 is a subheading (smaller than h1)
+          - border-left: adds a colored bar on the left
+          - padding-left: adds space between border and text
+        */
+        h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+        
+        /* 
+          LISTS:
+          - list-style: none removes default bullet points
+          - We'll add custom styling instead
+        */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        /* 
+          LIST ITEMS:
+          - display: flex allows flexible layout
+          - align-items: center vertically centers content
+          - padding: adds space around each item
+          - margin-bottom: space between items
+          - background: light background for each item
+          - border-radius: rounded corners
+          - transition: smooth animation when hovering
+        */
+        li {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            /* transition creates smooth animations */
+        }
+        
+        /* 
+          HOVER EFFECT:
+          - :hover is a pseudo-class (applies when mouse is over element)
+          - transform: scale slightly enlarges the item
+          - box-shadow: adds shadow on hover
+        */
+        li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 
+          PROJECTS GRID:
+          - display: grid creates a grid layout
+          - grid-template-columns: defines column widths
+          - repeat(auto-fit, minmax(...)) makes it responsive
+          - gap: space between grid items
+        */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        /* 
+          PROJECT CARD:
+          - Individual project containers
+          - padding: internal spacing
+          - background: card background
+          - border-radius: rounded corners
+          - cursor: pointer shows it's clickable
+        */
+        .project-card {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            /* translateY moves element up on hover */
+            box-shadow: 0 6px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        /* 
+          BUTTON STYLING:
+          - display: inline-block allows width/height control
+          - padding: internal spacing
+          - background: button color
+          - color: text color
+          - border: none removes default border
+          - border-radius: rounded corners
+          - cursor: pointer shows it's clickable
+        */
+        button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #764ba2;
+        }
+        
+        /* 
+          FOOTER:
+          - text-align: centers content
+          - padding: adds space
+          - margin-top: space above footer
+          - border-top: line above footer
+        */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+        
+        /* 
+          RESPONSIVE DESIGN:
+          - @media queries apply styles only at certain screen sizes
+          - This makes the site work well on mobile devices
+        */
+        @media (max-width: 768px) {
+            /* When screen is 768px or smaller (tablets/phones) */
+            h1 {
+                font-size: 2em;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                /* Single column on mobile */
+            }
+            
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+      THE <body> SECTION:
+      - Contains all visible content on your webpage
+      - Everything users see goes here
+    -->
+    
+    <div class="container">
+        <!-- 
+          DIV ELEMENTS:
+          - <div> is a container element (doesn't have meaning, just groups content)
+          - class="container" lets us style it with CSS (.container)
+          - Classes can be reused multiple times
+        -->
+        
+        <!-- 
+          HEADER:
+          - <header> is a semantic HTML5 element (has meaning)
+          - Semantic elements help with accessibility and SEO
+        -->
+        <header>
+            <h1>Alex</h1>
+            <!-- 
+              HEADINGS:
+              - h1 is the main title (use only one per page)
+              - h2, h3, h4, h5, h6 are subheadings (in order of importance)
+            -->
+            <p>ECE & Student Athlete '29</p>
+            <!-- 
+              PARAGRAPHS:
+              - <p> tags contain text paragraphs
+              - Browsers add spacing before/after paragraphs automatically
+            -->
+        </header>
+        
+        <!-- 
+          ABOUT SECTION:
+          - <section> is a semantic element for major content sections
+          - id="about" gives it a unique identifier (useful for JavaScript)
+        -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                <!-- 
+                  PLACEHOLDER TEXT:
+                  - Replace this with your actual information
+                  - You can add more paragraphs, links, images, etc.
+                -->
+                Welcome. I'm an ECE Student Athlete. 
+                Some of my skills and interests are below.
+            </p>
+        </section>
+        
+        <!-- 
+          FACTS & INTERESTS SECTION:
+          - <ul> is an unordered list (bullet points)
+          - <li> are list items (each bullet point)
+        -->
+        <section id="facts">
+            <h2>Me</h2>
+            <ul>
+                <li>👸 Beautiful Girlfriend</li>
+                <li>🏃‍♂️‍➡️ Long & Triple Jump + Sprints</li>
+                <li>🟣⚜️ SAE Fraternity</li>
+                <li>💻 ECE </li>
+                <li>🚀 Entrepreneurship</li>
+                <!-- 
+                  EMOJIS:
+                  - You can use emojis directly in HTML (UTF-8 encoding allows this)
+                  - Or use HTML entities like &#128516; for 😄
+                -->
+            </ul>
+        </section>
+        
+        <!-- 
+          PROJECTS SECTION:
+          - This section is ready for your future coding projects
+          - Each project will be a card in a grid layout
+        -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <p style="margin-bottom: 20px;">
+                <!-- 
+                  INLINE STYLES:
+                  - style="..." applies CSS directly to one element
+                  - Useful for one-off styling, but CSS in <style> tag is usually better
+                -->
+            </p>
+            
+            <!-- 
+              BUTTON:
+              - <button> creates a clickable button
+              - onclick is a JavaScript event handler (runs code when clicked)
+            -->
+            <button onclick="addProject()">Add Sample Project</button>
+            
+            <!-- 
+              DIV FOR PROJECTS:
+              - This is where projects will be displayed
+              - class="projects-grid" applies our grid CSS styling
+            -->
+            <div class="projects-grid" id="projects-container">
+                <!-- Projects will be added here by JavaScript or manually -->
+            </div>
+        </section>
+        
+        <!-- 
+          FOOTER:
+          - <footer> is a semantic element for footer content
+          - Usually contains copyright, links, contact info
+        -->
+        <footer>
+            <p>&copy; 2026 Alex Moser. Built with HTML, CSS, and JavaScript.</p>
+            <!-- 
+              HTML ENTITIES:
+              - &copy; displays the copyright symbol ©
+              - Other common ones: &nbsp; (space), &amp; (&), &lt; (<), &gt; (>)
+            -->
+        </footer>
+    </div>
+    
+    <!-- 
+      JAVASCRIPT:
+      - <script> contains JavaScript code
+      - JavaScript adds interactivity to your website
+      - We're putting it at the bottom so HTML loads first
+    -->
+    <script>
+        /* 
+          JAVASCRIPT BASICS:
+          - // for single-line comments
+          - /* */ for multi-line comments
+          - Functions are reusable blocks of code
+          - Variables store data (let, const, var)
+        */
+        
+        // Counter to track how many projects we've added
+        let projectCount = 0;
+        
+        /* 
+          FUNCTION DEFINITION:
+          - function keyword creates a function
+          - addProject is the function name
+          - Code inside { } runs when function is called
+        */
+        function addProject() {
+            projectCount++;
+            
+            /* 
+              DOM MANIPULATION:
+              - document.getElementById() finds an element by its id
+              - innerHTML lets us change the content inside an element
+              - += adds to existing content (instead of replacing it)
+            */
+            const container = document.getElementById('projects-container');
+            
+            /* 
+              TEMPLATE LITERALS:
+              - Backticks (`) allow multi-line strings
+              - ${} lets us insert variables/expressions
+              - This creates HTML dynamically
+            */
+            container.innerHTML += `
+                <div class="project-card" onclick="alert('Project ${projectCount} clicked!')">
+                    <h3>Project ${projectCount}</h3>
+                    <p>This is a sample project. Click to interact!</p>
+                    <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+                </div>
+            `;
+            
+            /* 
+              CONSOLE LOG:
+              - console.log() outputs to browser's developer console
+              - Great for debugging (press F12 to see console)
+            */
+            console.log(`Added project ${projectCount}`);
+        }
+        
+        /* 
+          EVENT LISTENERS:
+          - This code runs when the page finishes loading
+          - We can add initial projects or setup here
+        */
+        window.addEventListener('load', function() {
+            console.log('Portfolio website loaded!');
+            // You can add code here that runs when page loads
+        });
+        
+        /* 
+          LEARNING TIP:
+          - Try opening browser developer tools (F12 or right-click > Inspect)
+          - Check the Console tab to see console.log() messages
+          - Try modifying values and see what happens!
+        */
+    </script>
+</body>
+</html>
