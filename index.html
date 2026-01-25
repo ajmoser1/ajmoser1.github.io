@@ -248,14 +248,196 @@
         }
         
         /* 
-          LIST ITEMS:
-          - display: flex allows flexible layout
-          - align-items: center vertically centers content
-          - padding: adds space around each item
-          - margin-bottom: space between items
-          - background: light background for each item
-          - border-radius: rounded corners
-          - transition: smooth animation when hovering
+          INTERESTS SECTION - Colorful Badge Style
+        */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .interest-badge {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .interest-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .interest-badge:hover::before {
+            left: 100%;
+        }
+        
+        .interest-badge:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .interest-badge:nth-child(1) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .interest-badge:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .interest-badge:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .interest-badge:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .interest-badge:nth-child(5) {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+        
+        .interest-badge:nth-child(6) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        
+        .interest-badge:nth-child(7) {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+        }
+        
+        .interest-badge:nth-child(8) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+        
+        /* 
+          SKILLS SECTION - Icon Card Style
+        */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .skill-card::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .skill-card:hover::after {
+            opacity: 1;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .skill-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        /* 
+          CONTACT SECTION - Clickable Card Style
+        */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .contact-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            border-left-width: 8px;
+        }
+        
+        .contact-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .contact-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .contact-value {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        
+        .contact-card a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 
+          LEGACY LIST STYLING (for any remaining lists)
         */
         li {
             display: flex;
@@ -265,15 +447,8 @@
             background: white;
             border-radius: 5px;
             transition: transform 0.2s, box-shadow 0.2s;
-            /* transition creates smooth animations */
         }
         
-        /* 
-          HOVER EFFECT:
-          - :hover is a pseudo-class (applies when mouse is over element)
-          - transform: scale slightly enlarges the item
-          - box-shadow: adds shadow on hover
-        */
         li:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -393,6 +568,18 @@
                 width: 150px;
                 height: 150px;
             }
+            
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -484,35 +671,44 @@
         -->
         <section id="facts">
             <h2>Interests</h2>
-            <ul>
-                <li>🏃‍♂️‍➡️ Long & Triple Jump + Sprints</li>
-                <li>🟣⚜️ SAE Fraternity</li>
-                <li>💻 ECE </li>
-                <li>🚀 Entrepreneurship</li>
-                <li>👸 Beautiful Girlfriend</li>
-                <li>🎶 Baby Keem</li>
-                <li>🎬 The Shining</li>
-                <li>🐻 The Bears</li>
-                
-                <!-- 
-                  EMOJIS:
-                  - You can use emojis directly in HTML (UTF-8 encoding allows this)
-                  - Or use HTML entities like &#128516; for 😄
-                -->
-            </ul>
+            <div class="interests-grid">
+                <div class="interest-badge">🏃‍♂️‍➡️ Long & Triple Jump + Sprints</div>
+                <div class="interest-badge">🟣⚜️ SAE Fraternity</div>
+                <div class="interest-badge">💻 ECE</div>
+                <div class="interest-badge">🚀 Entrepreneurship</div>
+                <div class="interest-badge">👸 Beautiful Girlfriend</div>
+                <div class="interest-badge">🎶 Baby Keem</div>
+                <div class="interest-badge">🎬 The Shining</div>
+                <div class="interest-badge">🐻 The Bears</div>
+            </div>
         </section>
         
 
         <section id="skills">
-          <h2>Skills</h2>
-          <p>
-             <li> Jumping</li> 
-             <li> Social Skills</li> 
-             <li> Making Folks Laugh</li> 
-             <li> Playing the Didgeridoo</li> 
-             <li> Cooking</li>  
-          </p>
-      </section>        
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <span class="skill-icon">🏃</span>
+                    <div class="skill-name">Jumping</div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🤝</span>
+                    <div class="skill-name">Social Skills</div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">😄</span>
+                    <div class="skill-name">Making Folks Laugh</div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">🎵</span>
+                    <div class="skill-name">Playing the Didgeridoo</div>
+                </div>
+                <div class="skill-card">
+                    <span class="skill-icon">👨‍🍳</span>
+                    <div class="skill-name">Cooking</div>
+                </div>
+            </div>
+        </section>        
         <!-- 
           PROJECTS SECTION:
           - This section is ready for your future coding projects
@@ -548,21 +744,30 @@
 
 
         <section id="contact">
-          <h2>Contact</h3>
-          <ul>
-              <li>ajmoser@andrew.cmu.edu</li>
-              <li>amoser188@gmail.com</li>
-              <li>github.com/ajmoser1</li>
-              <li>linkedin.com/in/alex-moser-34059927a/</li>
-              
-              
-              <!-- 
-                EMOJIS:
-                - You can use emojis directly in HTML (UTF-8 encoding allows this)
-                - Or use HTML entities like &#128516; for 😄
-              -->
-          </ul>
-      </section>
+            <h2>Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card" onclick="window.location.href='mailto:ajmoser@andrew.cmu.edu'">
+                    <span class="contact-icon">📧</span>
+                    <div class="contact-label">Email (CMU)</div>
+                    <div class="contact-value">ajmoser@andrew.cmu.edu</div>
+                </div>
+                <div class="contact-card" onclick="window.location.href='mailto:amoser188@gmail.com'">
+                    <span class="contact-icon">✉️</span>
+                    <div class="contact-label">Email (Personal)</div>
+                    <div class="contact-value">amoser188@gmail.com</div>
+                </div>
+                <div class="contact-card" onclick="window.open('https://github.com/ajmoser1', '_blank')">
+                    <span class="contact-icon">💻</span>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">github.com/ajmoser1</div>
+                </div>
+                <div class="contact-card" onclick="window.open('https://linkedin.com/in/alex-moser-34059927a/', '_blank')">
+                    <span class="contact-icon">💼</span>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">linkedin.com/in/alex-moser-34059927a/</div>
+                </div>
+            </div>
+        </section>
         <!-- 
           FOOTER:
           - <footer> is a semantic element for footer content
