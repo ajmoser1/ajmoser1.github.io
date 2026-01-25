@@ -325,22 +325,8 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border: 1px solid rgba(255,255,255,0.5);
             transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInSection 0.8s ease forwards;
-        }
-        
-        section:nth-child(1) { animation-delay: 0.1s; }
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.3s; }
-        section:nth-child(4) { animation-delay: 0.4s; }
-        section:nth-child(5) { animation-delay: 0.5s; }
-        
-        @keyframes fadeInSection {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            opacity: 1;
+            transform: translateY(0);
         }
         
         section:hover {
@@ -408,8 +394,8 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .interest-badge::before {
@@ -486,8 +472,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .skill-card::before {
@@ -569,8 +555,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateX(-20px);
+            opacity: 1;
+            transform: translateX(0);
         }
         
         .contact-card::before {
@@ -682,8 +668,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .project-card::before {
@@ -1127,7 +1113,7 @@
                 </div>
             `;
             
-            // Scroll-triggered animations
+            // Optional: Add subtle scroll animations (elements are already visible)
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -1137,22 +1123,15 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.style.opacity = '1';
-                        if (entry.target.classList.contains('contact-card')) {
-                            entry.target.style.transform = 'translateX(0)';
-                        } else {
-                            entry.target.style.transform = 'translateY(0)';
-                        }
+                        entry.target.style.transform = entry.target.classList.contains('contact-card') ? 'translateX(0)' : 'translateY(0)';
                     }
                 });
             }, observerOptions);
             
-            // Observe all sections and cards with staggered delays
-            setTimeout(() => {
-                document.querySelectorAll('.interest-badge, .skill-card, .contact-card, .project-card').forEach((el, index) => {
-                    el.style.transitionDelay = `${index * 0.1}s`;
-                    observer.observe(el);
-                });
-            }, 100);
+            // All elements are visible by default, observer just ensures smooth appearance
+            document.querySelectorAll('.interest-badge, .skill-card, .contact-card, .project-card').forEach((el) => {
+                observer.observe(el);
+            });
         });
         
         /* 
