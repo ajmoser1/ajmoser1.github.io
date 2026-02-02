@@ -1,240 +1,206 @@
 <!DOCTYPE html>
-<!-- 
-  HTML BASICS:
-  - This is the document type declaration. It tells the browser this is HTML5.
-  - Everything between <html> and </html> is your webpage content.
--->
 <html lang="en">
 <head>
-    <!-- 
-      THE <head> SECTION:
-      - Contains metadata (information about the page, not visible content)
-      - Links to CSS, JavaScript, and other resources
-      - Sets the page title (shown in browser tab)
-    -->
     <meta charset="UTF-8">
-    <!-- UTF-8 is the character encoding - allows special characters and emojis -->
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Makes the site responsive - works on mobile, tablet, and desktop -->
+    <title>Alex Moser</title>
     
-    <title>Moser Portfolio</title>
-    
-    <!-- Google Fonts for modern typography -->
+    <!-- Elegant Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- This appears in the browser tab -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- 
-      CSS (Cascading Style Sheets):
-      - Styles define HOW your content looks (colors, fonts, layout, spacing)
-      - We're using a <style> tag to embed CSS directly in the HTML
-      - You could also put this in a separate .css file and link it with:
-        <link rel="stylesheet" href="styles.css">
-    -->
     <style>
-        /* 
-          CSS SYNTAX:
-          - Comments use /* */   /*
-          - selector { property: value; }
-          - Example: h1 { color: blue; } means "make all h1 headings blue"
-        */
-        
-        /* 
-          RESET & BASE STYLES:
-          - * is a universal selector (applies to all elements)
-          - margin: 0 and padding: 0 remove default browser spacing
-          - box-sizing: border-box makes sizing calculations easier
-        */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
-        /* 
-          BODY STYLING:
-          - The <body> contains all visible content
-          - font-family: defines which fonts to use (with fallbacks)
-          - line-height: spacing between lines of text (1.6 = 60% extra space)
-          - color: text color
-          - background: page background
-        */
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 111px;
-            /* Adds space at top when scrolling to sections, accounting for nav bar */
-            /* This centers sections better when clicking nav links */
         }
         
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(-45deg, #3b82f6, #2563eb, #60a5fa, #1e40af);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh;
-            position: relative;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #e8e8e8;
             overflow-x: hidden;
+            line-height: 1.6;
         }
         
-        /* Animated gradient background */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Floating particles effect */
-        body::before {
-            content: '';
+        /* ===== INTRO ANIMATION ===== */
+        #intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
+            height: 100vh;
+            background: #0a0a0a;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeOut 1s ease-in-out 3.5s forwards;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+        .intro-content {
+            text-align: center;
+            opacity: 0;
+            animation: zoomIn 2s ease-out 0.5s forwards;
         }
         
-        /* 
-          CONTAINER:
-          - max-width: limits how wide content can be (better readability)
-          - margin: 0 auto centers the container horizontally
-          - padding: adds space inside the container
-          - background: white background for content area
-        */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border-radius: 20px;
-            position: relative;
-            z-index: 1;
-            margin-top: 20px;
-            margin-bottom: 20px;
+        .intro-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 30px;
+            border: 3px solid #dc2626;
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.3);
         }
         
-        /* 
-          NAVIGATION BAR:
-          - Fixed at the top of the page
-          - Stays visible when scrolling
-          - Contains links to different sections
-        */
+        .intro-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .intro-tagline {
+            font-size: 1.2em;
+            color: #999;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        /* ===== NAVIGATION ===== */
         nav {
-            position: sticky;
+            position: fixed;
             top: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-            z-index: 1000;
-            padding: 15px 0;
-            margin-bottom: 20px;
+            left: 0;
             width: 100%;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
+            padding: 20px 60px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInNav 1s ease-out 4s forwards;
         }
         
-        nav:hover {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 6px 40px rgba(0,0,0,0.15);
+        @keyframes fadeInNav {
+            to { opacity: 1; }
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            color: #dc2626;
+        }
+        
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-links li {
-            margin: 0;
-            padding: 0;
-            background: none;
-            border-radius: 0;
-            transition: none;
-        }
-        
-        .nav-links li:hover {
-            transform: none;
-            box-shadow: none;
+            gap: 50px;
         }
         
         .nav-links a {
-            color: #333;
+            color: #e8e8e8;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1em;
-            transition: color 0.3s;
-            padding: 5px 10px;
+            font-size: 0.95em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #dc2626;
+            transition: width 0.3s ease;
         }
         
         .nav-links a:hover {
-            color: #3b82f6;
+            color: #dc2626;
         }
         
-        .nav-logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #3b82f6;
-            text-decoration: none;
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
-        /* 
-          HEADER SECTION:
-          - text-align: centers the text
-          - padding: adds space around content (top/bottom left/right)
-          - border-bottom: adds a line under the header
-        */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            margin-bottom: 60px;
-            position: relative;
-            animation: fadeInUp 1s ease-out;
+        .nav-links a.active {
+            color: #dc2626;
         }
         
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-            border-radius: 2px;
+        /* ===== MAIN CONTENT CONTAINER ===== */
+        .view-container {
+            opacity: 0;
+            animation: fadeInContent 1s ease-out 4.5s forwards;
         }
         
-        @keyframes fadeInUp {
+        @keyframes fadeInContent {
+            to { opacity: 1; }
+        }
+        
+        .view {
+            display: none;
+            min-height: 100vh;
+            padding: 120px 60px 60px;
+        }
+        
+        .view.active {
+            display: block;
+            animation: viewFadeIn 0.6s ease-out;
+        }
+        
+        @keyframes viewFadeIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -242,904 +208,720 @@
             }
         }
         
-        /* 
-          PROFILE IMAGE:
-          - Rectangular profile picture
-          - Responsive sizing
-          - Nice shadow effect
-        */
-        .profile-img {
-            width: 400px;
-            height: 400px;
-            border-radius: 20px;
-            object-fit: cover;
-            border: 5px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #3b82f6, #2563eb, #60a5fa) border-box;
-            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4),
-                        0 0 0 10px rgba(255,255,255,0.1);
-            margin-bottom: 30px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            transition: all 0.4s ease;
-            animation: floatImage 6s ease-in-out infinite;
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .profile-img:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 15px 50px rgba(59, 130, 246, 0.5),
-                        0 0 0 15px rgba(255,255,255,0.2);
-        }
-        
-        @keyframes floatImage {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* 
-          HEADING STYLES:
-          - h1 is the main heading (largest)
-          - color: sets text color
-          - margin-bottom: adds space below the heading
-        */
-        h1 {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #60a5fa 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* ===== TYPOGRAPHY ===== */
+        .section-title {
+            font-family: 'Playfair Display', serif;
             font-size: 3.5em;
-            font-weight: 800;
-            margin-bottom: 10px;
-            animation: gradientText 3s ease infinite;
-            letter-spacing: -1px;
-        }
-        
-        @keyframes gradientText {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
-        }
-        
-        /* 
-          PARAGRAPH STYLING:
-          - font-size: sets text size
-          - color: slightly gray for less emphasis
-        */
-        p {
-            font-size: 1.1em;
-            color: #666;
-        }
-        
-        /* 
-          SECTION STYLING:
-          - Sections are logical divisions of content
-          - margin-bottom: adds space between sections
-        */
-        section {
-            margin-bottom: 50px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.9) 100%);
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.5);
-            transition: all 0.4s ease;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
-        }
-        
-        /* 
-          SECTION HEADINGS:
-          - h2 is a subheading (smaller than h1)
-          - border-left: adds a colored bar on the left
-          - padding-left: adds space between border and text
-        */
-        h2 {
-            font-family: 'Poppins', sans-serif;
-            color: #2563eb;
-            font-size: 2.5em;
             font-weight: 700;
-            margin-bottom: 30px;
-            position: relative;
-            padding-left: 20px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
         
-        h2::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            background: linear-gradient(180deg, #3b82f6, #2563eb);
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        .section-subtitle {
+            font-size: 1.2em;
+            color: #999;
+            margin-bottom: 60px;
+            font-weight: 300;
         }
         
-        /* 
-          LISTS:
-          - list-style: none removes default bullet points
-          - We'll add custom styling instead
-        */
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        /* 
-          INTERESTS SECTION - Colorful Badge Style
-        */
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .interest-badge {
+        /* ===== HOME VIEW ===== */
+        #home {
             display: flex;
             align-items: center;
-            padding: 25px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
-            position: relative;
-            overflow: hidden;
-            opacity: 1;
-            transform: translateY(0);
+            justify-content: center;
         }
         
-        .interest-badge::before {
+        .home-content {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        .home-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin: 0 auto 40px;
+            border: 2px solid rgba(220, 38, 38, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .home-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 80px rgba(220, 38, 38, 0.2);
+        }
+        
+        .home-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .home-tagline {
+            font-size: 1.5em;
+            color: #dc2626;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .home-description {
+            font-size: 1.1em;
+            color: #b3b3b3;
+            line-height: 1.8;
+            margin-bottom: 50px;
+        }
+        
+        .cta-link {
+            display: inline-block;
+            color: #e8e8e8;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.5);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .cta-link:hover {
+            color: #dc2626;
+            border-bottom-color: #dc2626;
+            padding-left: 10px;
+        }
+        
+        /* ===== BIO VIEW ===== */
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-top: 40px;
+        }
+        
+        .bio-text {
+            font-size: 1.1em;
+            color: #b3b3b3;
+            line-height: 1.9;
+        }
+        
+        .bio-text p {
+            margin-bottom: 20px;
+        }
+        
+        .bio-highlight {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 3px solid #dc2626;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .bio-highlight h3 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        /* ===== INTERESTS VIEW ===== */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .interest-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .interest-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.05), transparent);
+            transition: left 0.6s ease;
         }
         
-        .interest-badge:hover::before {
+        .interest-card:hover::before {
             left: 100%;
         }
         
-        .interest-badge:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.5);
+        .interest-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(220, 38, 38, 0.3);
+            transform: translateY(-5px);
         }
         
-        .interest-badge:nth-child(1) {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .interest-badge:nth-child(2) {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .interest-badge:nth-child(3) {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-        
-        .interest-badge:nth-child(4) {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        }
-        
-        .interest-badge:nth-child(5) {
-            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-        }
-        
-        .interest-badge:nth-child(6) {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            color: #333;
-        }
-        
-        .interest-badge:nth-child(7) {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            color: #333;
-        }
-        
-        .interest-badge:nth-child(8) {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: #333;
-        }
-        
-        /* 
-          SKILLS SECTION - Icon Card Style
-        */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
-        
-        .skill-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 3px solid transparent;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        
-        .skill-card::after {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb, #60a5fa);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        
-        .skill-card:hover::before {
-            opacity: 1;
-        }
-        
-        .skill-card:hover::after {
-            opacity: 1;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-12px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
-        }
-        
-        .skill-icon {
-            transition: transform 0.4s ease;
-        }
-        
-        .skill-card:hover .skill-icon {
-            transform: scale(1.2) rotate(5deg);
-        }
-        
-        .skill-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
+        .interest-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
             display: block;
         }
         
-        .skill-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.1em;
+        .interest-name {
+            font-size: 1.2em;
+            color: #e8e8e8;
+            font-weight: 500;
         }
         
-        /* 
-          CONTACT SECTION - Clickable Card Style
-        */
+        /* ===== SKILLS VIEW ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .skill-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(220, 38, 38, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .skill-icon {
+            font-size: 2.5em;
+            margin-bottom: 12px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover .skill-icon {
+            transform: scale(1.1);
+        }
+        
+        .skill-name {
+            font-size: 1em;
+            color: #e8e8e8;
+            font-weight: 400;
+        }
+        
+        /* ===== PROJECTS VIEW ===== */
+        .projects-grid {
+            display: grid;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #dc2626;
+            transition: width 0.4s ease;
+        }
+        
+        .project-card:hover::after {
+            width: 100%;
+        }
+        
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(220, 38, 38, 0.2);
+            transform: translateX(10px);
+        }
+        
+        .project-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .project-card p {
+            color: #b3b3b3;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .project-tech {
+            color: #dc2626;
+            font-size: 0.9em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ===== CONTACT VIEW ===== */
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
         
         .contact-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 6px solid;
-            border-image: linear-gradient(180deg, #3b82f6, #2563eb) 1;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            display: block;
             position: relative;
-            overflow: hidden;
-            opacity: 1;
-            transform: translateX(0);
         }
         
         .contact-card::before {
             content: '';
             position: absolute;
+            left: 0;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s;
+            width: 3px;
+            height: 0;
+            background: #dc2626;
+            transition: height 0.3s ease;
         }
         
         .contact-card:hover::before {
-            left: 100%;
+            height: 100%;
         }
         
         .contact-card:hover {
-            transform: translateX(15px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-            border-left-width: 10px;
-            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,249,250,1) 100%);
-        }
-        
-        .contact-icon {
-            transition: transform 0.4s ease;
-        }
-        
-        .contact-card:hover .contact-icon {
-            transform: scale(1.2) rotate(-5deg);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(220, 38, 38, 0.3);
+            transform: translateX(5px);
         }
         
         .contact-icon {
             font-size: 2em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
         }
         
         .contact-label {
-            font-size: 0.9em;
-            color: #666;
+            font-size: 0.85em;
+            color: #999;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin-bottom: 8px;
         }
         
         .contact-value {
             font-size: 1.1em;
-            color: #333;
-            font-weight: 500;
+            color: #e8e8e8;
             word-break: break-all;
         }
         
-        .contact-card a {
-            color: #3b82f6;
-            text-decoration: none;
-        }
-        
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-        
-        /* 
-          LEGACY LIST STYLING (for any remaining lists)
-        */
-        li {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 5px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        li:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        /* 
-          PROJECTS GRID:
-          - display: grid creates a grid layout
-          - grid-template-columns: defines column widths
-          - repeat(auto-fit, minmax(...)) makes it responsive
-          - gap: space between grid items
-        */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        /* 
-          PROJECT CARD:
-          - Individual project containers
-          - padding: internal spacing
-          - background: card background
-          - border-radius: rounded corners
-          - cursor: pointer shows it's clickable
-        */
-        .project-card {
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.95) 100%);
-            border-radius: 15px;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        
-        .project-card:hover::before {
-            left: 100%;
-        }
-        
-        .project-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
-            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,249,250,1) 100%);
-        }
-        
-        /* 
-          BUTTON STYLING:
-          - display: inline-block allows width/height control
-          - padding: internal spacing
-          - background: button color
-          - color: text color
-          - border: none removes default border
-          - border-radius: rounded corners
-          - cursor: pointer shows it's clickable
-        */
-        button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
-        }
-        
-        button:active {
-            transform: translateY(-1px);
-        }
-        
-        /* 
-          FOOTER:
-          - text-align: centers content
-          - padding: adds space
-          - margin-top: space above footer
-          - border-top: line above footer
-        */
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            border-top: 2px solid #e0e0e0;
+            padding: 40px 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: #666;
+            font-size: 0.9em;
         }
         
-        /* 
-          RESPONSIVE DESIGN:
-          - @media queries apply styles only at certain screen sizes
-          - This makes the site work well on mobile devices
-        */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            /* When screen is 768px or smaller (tablets/phones) */
-            h1 {
-                font-size: 2em;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-                /* Single column on mobile */
-            }
-            
-            section {
-                padding: 20px;
+            nav {
+                padding: 15px 30px;
             }
             
             .nav-links {
-                gap: 15px;
+                gap: 25px;
             }
             
             .nav-links a {
-                font-size: 0.9em;
+                font-size: 0.85em;
             }
             
-            .nav-logo {
-                font-size: 1.2em;
+            .view {
+                padding: 100px 30px 40px;
             }
             
-            .profile-img {
+            .section-title {
+                font-size: 2.5em;
+            }
+            
+            .home-title {
+                font-size: 3em;
+            }
+            
+            .home-image {
                 width: 200px;
                 height: 200px;
             }
             
-            h1 {
+            .bio-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .intro-name {
                 font-size: 2.5em;
             }
             
-            h2 {
-                font-size: 2em;
-            }
-            
-            .interests-grid {
-                grid-template-columns: 1fr;
+            .intro-image {
+                width: 150px;
+                height: 150px;
             }
             
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            section {
-                padding: 25px;
+            .project-card {
+                padding: 30px;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- 
-      THE <body> SECTION:
-      - Contains all visible content on your webpage
-      - Everything users see goes here
-    -->
+    <!-- INTRO ANIMATION -->
+    <div id="intro-screen">
+        <div class="intro-content">
+            <img src="profile.jpg" alt="Alex Moser" class="intro-image">
+            <h1 class="intro-name">ALEX MOSER</h1>
+            <p class="intro-tagline">Student · Athlete · Founder</p>
+        </div>
+    </div>
     
-    <!-- 
-      NAVIGATION BAR:
-      - <nav> is a semantic HTML5 element for navigation
-      - Contains links to different sections of the page
-      - Stays at the top when scrolling (sticky positioning)
-    -->
+    <!-- NAVIGATION -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="nav-logo">Alex Moser</a>
+            <a href="#" class="nav-logo" onclick="showView('home'); return false;">AM</a>
             <ul class="nav-links">
-                <li><a href="#about">Bio</a></li>
-                <li><a href="#facts">Interests</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                
+                <li><a href="#" class="nav-link active" onclick="showView('home'); return false;">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showView('bio'); return false;">Bio</a></li>
+                <li><a href="#" class="nav-link" onclick="showView('interests'); return false;">Interests</a></li>
+                <li><a href="#" class="nav-link" onclick="showView('skills'); return false;">Skills</a></li>
+                <li><a href="#" class="nav-link" onclick="showView('projects'); return false;">Projects</a></li>
+                <li><a href="#" class="nav-link" onclick="showView('contact'); return false;">Contact</a></li>
             </ul>
         </div>
     </nav>
     
-    <div class="container">
-        <!-- 
-          DIV ELEMENTS:
-          - <div> is a container element (doesn't have meaning, just groups content)
-          - class="container" lets us style it with CSS (.container)
-          - Classes can be reused multiple times
-        -->
+    <!-- MAIN CONTENT -->
+    <div class="view-container">
         
-        <!-- 
-          HEADER:
-          - <header> is a semantic HTML5 element (has meaning)
-          - Semantic elements help with accessibility and SEO
-        -->
-        <header>
-            <!-- 
-              PROFILE IMAGE:
-              - Replace "your-image.jpg" with your actual image filename
-              - Place your image file in the same folder as index.html
-              - Supported formats: .jpg, .jpeg, .png, .gif, .webp
-            -->
-            <img src="profile.jpg" alt="Alex Moser" class="profile-img">
-            
-            <h1>Alex Moser</h1>
-            <!-- 
-              HEADINGS:
-              - h1 is the main title (use only one per page)
-              - h2, h3, h4, h5, h6 are subheadings (in order of importance)
-            -->
-            <p>ECE Student Athlete '29</p>
-            <!-- 
-              PARAGRAPHS:
-              - <p> tags contain text paragraphs
-              - Browsers add spacing before/after paragraphs automatically
-            -->
-        </header>
+        <!-- HOME VIEW -->
+        <div id="home" class="view active">
+            <div class="home-content">
+                <img src="profile.jpg" alt="Alex Moser" class="home-image">
+                <h1 class="home-title">Alex Moser</h1>
+                <p class="home-tagline">ECE Student Athlete at Carnegie Mellon</p>
+                <p class="home-description">
+                    Relentlessly driven to learn, improve, and solve problems. Growth mindset with an entrepreneur's 
+                    agency and bias for action. Building ventures, breaking records, and creating measurable value.
+                </p>
+                <a href="#" class="cta-link" onclick="showView('bio'); return false;">Explore my journey →</a>
+            </div>
+        </div>
         
-        <!-- 
-          ABOUT SECTION:
-          - <section> is a semantic element for major content sections
-          - id="about" gives it a unique identifier (useful for JavaScript)
-        -->
-        <section id="about">
-            <h2>Bio</h2>
-            <p>
-                <!-- 
-                  PLACEHOLDER TEXT:
-                  - Replace this with your actual information
-                  - You can add more paragraphs, links, images, etc.
-                -->
-                I'm an ECE '29 Student Athlete from Chicago. At CMU I'm involved in SAE, The Swartz Center, SEP, and Track & Field. I run a private tutoring business right now and I'm looking forward to gaining technical skills and literacy. 
+        <!-- BIO VIEW -->
+        <div id="bio" class="view">
+            <div class="content-wrapper">
+                <h2 class="section-title">Biography</h2>
+                <p class="section-subtitle">Chicago-born, Carnegie Mellon-bound</p>
                 
-            </p>
-        </section>
-        
-        <!-- 
-          FACTS & INTERESTS SECTION:
-          - <ul> is an unordered list (bullet points)
-          - <li> are list items (each bullet point)
-        -->
-        <section id="facts">
-            <h2>Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-badge">🏃‍♂️‍➡️ Long & Triple Jump + Sprints</div>
-                <div class="interest-badge">🟣⚜️ SAE Fraternity</div>
-                <div class="interest-badge">💻 ECE</div>
-                <div class="interest-badge">🚀 Entrepreneurship</div>
-                <div class="interest-badge">👸 Beautiful Girlfriend</div>
-                <div class="interest-badge">🎶 Baby Keem</div>
-                <div class="interest-badge">🎬 The Shining</div>
-                <div class="interest-badge">🐻 The Bears</div>
-            </div>
-        </section>
-        
-
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <span class="skill-icon">🏃</span>
-                    <div class="skill-name">Jumping</div>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-icon">🤝</span>
-                    <div class="skill-name">Social Skills</div>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-icon">🔌</span>
-                    <div class="skill-name">Breadboarding</div>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-icon">💻</span>
-                    <div class="skill-name">15-112 level programming</div>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-icon">🎵</span>
-                    <div class="skill-name">Playing the Didgeridoo</div>
-                </div>
-                <div class="skill-card">
-                    <span class="skill-icon">👨‍🍳</span>
-                    <div class="skill-name">Cooking</div>
+                <div class="bio-grid">
+                    <div class="bio-text">
+                        <p>
+                            I'm an Electrical & Computer Engineering student-athlete at Carnegie Mellon, relentlessly 
+                            driven to learn, improve, and solve problems. With a growth mindset and an entrepreneur's 
+                            agency and bias for action, I thrive in fast-moving environments where I can experiment, 
+                            iterate quickly, and create measurable value.
+                        </p>
+                        <p>
+                            As the founder of Achieve More Academics, I built a STEM tutoring business with 5+ tutors 
+                            serving middle school and high school students. I handle all aspects from client management 
+                            and marketing to progress reporting and payment processing, while delivering personalized 
+                            tutoring sessions that maintain high academic outcomes.
+                        </p>
+                        <p>
+                            Previously, I founded A+ Washing, a residential power-washing service, where I led marketing 
+                            strategy, managed client communications, and oversaw workflow optimization. I'm fluent in 
+                            using AI tools to optimize academic productivity and advance business ventures, combining 
+                            technical literacy with entrepreneurial execution.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <div class="bio-highlight">
+                            <h3>Leadership & Growth</h3>
+                            <p style="color: #b3b3b3; line-height: 1.8;">
+                                John O. Mosely Leadership School Graduate with strong communication and leadership 
+                                skills. Maintaining academic discipline and excellency in a rigorous course load 
+                                while balancing athletic competitiveness and time management as an NCAA Student Athlete.
+                            </p>
+                        </div>
+                        
+                        <div class="bio-highlight" style="margin-top: 30px;">
+                            <h3>Involvements</h3>
+                            <p style="color: #b3b3b3; line-height: 1.8;">
+                                Sigma Alpha Epsilon Fraternity · Swartz Center for Entrepreneurship · 
+                                CMU Track & Field · John O. Mosely Leadership School
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>        
-        <!-- 
-          PROJECTS SECTION:
-          - This section is ready for your future coding projects
-          - Each project will be a card in a grid layout
-        -->
-        <section id="projects">
-            <h2>Projects</h2>
-            <p style="margin-bottom: 20px;">
-                <!-- 
-                  INLINE STYLES:
-                  - style="..." applies CSS directly to one element
-                  - Useful for one-off styling, but CSS in <style> tag is usually better
-                -->
+        </div>
+        
+        <!-- INTERESTS VIEW -->
+        <div id="interests" class="view">
+            <div class="content-wrapper">
+                <h2 class="section-title">Interests</h2>
+                <p class="section-subtitle">What drives me beyond the classroom</p>
                 
-            </p>
-            
-            <!-- 
-              BUTTON:
-              - <button> creates a clickable button
-              - onclick is a JavaScript event handler (runs code when clicked)
-            -->
-            <button onclick="addProject()">Add Sample Project</button>
-            
-            <!-- 
-              DIV FOR PROJECTS:
-              - This is where projects will be displayed
-              - class="projects-grid" applies our grid CSS styling
-            -->
-            <div class="projects-grid" id="projects-container">
-                <!-- Projects will be added here by JavaScript or manually -->
+                <div class="interests-grid">
+                    <div class="interest-card">
+                        <span class="interest-icon">🏃‍♂️</span>
+                        <div class="interest-name">Track & Field (NCAA)</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">⚡</span>
+                        <div class="interest-name">Long Jump · Triple Jump · Sprints</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🟣</span>
+                        <div class="interest-name">Sigma Alpha Epsilon</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">💻</span>
+                        <div class="interest-name">Electrical Engineering</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🚀</span>
+                        <div class="interest-name">Entrepreneurship</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">📚</span>
+                        <div class="interest-name">Teaching & Mentoring</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">👸</span>
+                        <div class="interest-name">Quality Time</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🎶</span>
+                        <div class="interest-name">Baby Keem</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🎬</span>
+                        <div class="interest-name">The Shining</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🐻</span>
+                        <div class="interest-name">Chicago Bears</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🎯</span>
+                        <div class="interest-name">Building Scalable Solutions</div>
+                    </div>
+                    <div class="interest-card">
+                        <span class="interest-icon">🤖</span>
+                        <div class="interest-name">AI & Productivity</div>
+                    </div>
+                </div>
             </div>
-        </section>
-
-
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="contact-grid">
-                <div class="contact-card" onclick="window.location.href='mailto:ajmoser@andrew.cmu.edu'">
-                    <span class="contact-icon">📧</span>
-                    <div class="contact-label">Email (CMU)</div>
-                    <div class="contact-value">ajmoser@andrew.cmu.edu</div>
-                </div>
-                <div class="contact-card" onclick="window.location.href='mailto:amoser188@gmail.com'">
-                    <span class="contact-icon">✉️</span>
-                    <div class="contact-label">Email (Personal)</div>
-                    <div class="contact-value">amoser188@gmail.com</div>
-                </div>
-                <div class="contact-card" onclick="window.open('https://github.com/ajmoser1', '_blank')">
-                    <span class="contact-icon">💻</span>
-                    <div class="contact-label">GitHub</div>
-                    <div class="contact-value">github.com/ajmoser1</div>
-                </div>
-                <div class="contact-card" onclick="window.open('https://linkedin.com/in/alex-moser-34059927a/', '_blank')">
-                    <span class="contact-icon">💼</span>
-                    <div class="contact-label">LinkedIn</div>
-                    <div class="contact-value">linkedin.com/in/alex-moser-34059927a/</div>
+        </div>
+        
+        <!-- SKILLS VIEW -->
+        <div id="skills" class="view">
+            <div class="content-wrapper">
+                <h2 class="section-title">Skills</h2>
+                <p class="section-subtitle">Technical and personal capabilities</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <span class="skill-icon">⚡</span>
+                        <div class="skill-name">Action-Bias</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🤝</span>
+                        <div class="skill-name">Communication</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🎯</span>
+                        <div class="skill-name">Relentlessness</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🐍</span>
+                        <div class="skill-name">Python</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🧘</span>
+                        <div class="skill-name">Patience</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🤖</span>
+                        <div class="skill-name">AI Tools</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">📈</span>
+                        <div class="skill-name">Business Development</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">👥</span>
+                        <div class="skill-name">Leadership</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">📚</span>
+                        <div class="skill-name">STEM Tutoring</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🔌</span>
+                        <div class="skill-name">Circuit Design</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">⏱️</span>
+                        <div class="skill-name">Time Management</div>
+                    </div>
+                    <div class="skill-card">
+                        <span class="skill-icon">🏃</span>
+                        <div class="skill-name">Athletic Excellence</div>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- 
-          FOOTER:
-          - <footer> is a semantic element for footer content
-          - Usually contains copyright, links, contact info
-        -->
-        <footer>
-            <p>&copy; 2026 Alex Moser. Built with HTML, CSS, and JavaScript.</p>
-            <!-- 
-              HTML ENTITIES:
-              - &copy; displays the copyright symbol ©
-              - Other common ones: &nbsp; (space), &amp; (&), &lt; (<), &gt; (>)
-            -->
-        </footer>
+        </div>
+        
+        <!-- PROJECTS VIEW -->
+        <div id="projects" class="view">
+            <div class="content-wrapper">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">Work in progress</p>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Achieve More Academics</h3>
+                        <p>Founded and operate a private STEM tutoring business with 5+ tutors serving middle school 
+                        and high school students. Lead all aspects of client management, outreach, scheduling, progress 
+                        reporting, and payment processing. Directed marketing through local promotions and digital 
+                        channels to grow student base while maintaining high academic outcomes.</p>
+                        <p class="project-tech">Entrepreneurship · Education · Business Management · Marketing</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3>A+ Washing</h3>
+                        <p>Founded residential power-washing service for local area. Led and executed marketing and 
+                        outreach strategy including social media promotion and paid advertising. Managed client 
+                        communication, estimates, and logistics. Oversaw workflow optimization, payment processing, 
+                        and customer satisfaction.</p>
+                        <p class="project-tech">Service Business · Marketing · Operations · Customer Relations</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3>Private Tutoring Experience</h3>
+                        <p>Applied strategies and methodology gained from Mathnasium to develop tailored lesson plans 
+                        and learning structures for private clients at Dana Stein Academics. Managed communication 
+                        and arranged sessions with 10+ clients simultaneously. Provided critical feedback to students 
+                        and progress updates to parents.</p>
+                        <p class="project-tech">Education · Curriculum Development · Communication</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3>CMU Graphics Project</h3>
+                        <p>Computational graphics project built using the cmu_graphics library, exploring 
+                        visual computing and algorithmic problem-solving through Python programming.</p>
+                        <p class="project-tech">Python · cmu_graphics · Computer Science</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONTACT VIEW -->
+        <div id="contact" class="view">
+            <div class="content-wrapper">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Let's connect</p>
+                
+                <div class="contact-grid">
+                    <a href="mailto:ajmoser@andrew.cmu.edu" class="contact-card">
+                        <span class="contact-icon">📧</span>
+                        <div class="contact-label">CMU Email</div>
+                        <div class="contact-value">ajmoser@andrew.cmu.edu</div>
+                    </a>
+                    <a href="mailto:amoser188@gmail.com" class="contact-card">
+                        <span class="contact-icon">✉️</span>
+                        <div class="contact-label">Personal Email</div>
+                        <div class="contact-value">amoser188@gmail.com</div>
+                    </a>
+                    <a href="https://github.com/ajmoser1" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <span class="contact-icon">💻</span>
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value">github.com/ajmoser1</div>
+                    </a>
+                    <a href="https://linkedin.com/in/alex-moser-34059927a/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <span class="contact-icon">💼</span>
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">linkedin.com/in/alex-moser-34059927a</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     </div>
     
-    <!-- 
-      JAVASCRIPT:
-      - <script> contains JavaScript code
-      - JavaScript adds interactivity to your website
-      - We're putting it at the bottom so HTML loads first
-    -->
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Alex Moser. Crafted with precision.</p>
+    </footer>
+    
+    <!-- JAVASCRIPT -->
     <script>
-        /* 
-          JAVASCRIPT BASICS:
-          - // for single-line comments
-          - /* */ for multi-line comments
-          - Functions are reusable blocks of code
-          - Variables store data (let, const, var)
-        */
-        
-        // Counter to track how many projects we've added
-        let projectCount = 3; // Start at 3 since we have 3 placeholder projects
-        
-        /* 
-          FUNCTION DEFINITION:
-          - function keyword creates a function
-          - addProject is the function name
-          - Code inside { } runs when function is called
-        */
-        function addProject() {
-            projectCount++;
-            
-            /* 
-              DOM MANIPULATION:
-              - document.getElementById() finds an element by its id
-              - innerHTML lets us change the content inside an element
-              - += adds to existing content (instead of replacing it)
-            */
-            const container = document.getElementById('projects-container');
-            
-            /* 
-              TEMPLATE LITERALS:
-              - Backticks (`) allow multi-line strings
-              - ${} lets us insert variables/expressions
-              - This creates HTML dynamically
-            */
-            container.innerHTML += `
-                <div class="project-card" onclick="alert('Project ${projectCount} clicked!')">
-                    <h3>Project ${projectCount}</h3>
-                    <p>This is a sample project. Click to interact!</p>
-                    <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
-                </div>
-            `;
-            
-            /* 
-              CONSOLE LOG:
-              - console.log() outputs to browser's developer console
-              - Great for debugging (press F12 to see console)
-            */
-            console.log(`Added project ${projectCount}`);
-        }
-        
-        /* 
-          EVENT LISTENERS:
-          - This code runs when the page finishes loading
-          - We can add initial projects or setup here
-        */
-        window.addEventListener('load', function() {
-            console.log('Portfolio website loaded!');
-            // Add three placeholder projects on page load
-            const container = document.getElementById('projects-container');
-            container.innerHTML = `
-                <div class="project-card">
-                    <h3>Project 1</h3>
-                    <p>Project description goes here...</p>
-                    <p><strong>Technologies:</strong> </p>
-                </div>
-                <div class="project-card">
-                    <h3>Project 2</h3>
-                    <p>Project description goes here...</p>
-                    <p><strong>Technologies:</strong> </p>
-                </div>
-                <div class="project-card">
-                    <h3>Project 3</h3>
-                    <p>Project description goes here...</p>
-                    <p><strong>Technologies:</strong> </p>
-                </div>
-            `;
-            
-            // Optional: Add subtle scroll animations (elements are already visible)
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = entry.target.classList.contains('contact-card') ? 'translateX(0)' : 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // All elements are visible by default, observer just ensures smooth appearance
-            document.querySelectorAll('.interest-badge, .skill-card, .contact-card, .project-card').forEach((el) => {
-                observer.observe(el);
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(function(view) {
+                view.classList.remove('active');
             });
-        });
-        
-        /* 
-          LEARNING TIP:
-          - Try opening browser developer tools (F12 or right-click > Inspect)
-          - Check the Console tab to see console.log() messages
-          - Try modifying values and see what happens!
-        */
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                link.classList.remove('active');
+            });
+            
+            var targetView = document.getElementById(viewId);
+            if (targetView) targetView.classList.add('active');
+            
+            var clickedLink = event && event.target;
+            if (clickedLink && clickedLink.classList && clickedLink.classList.contains('nav-link')) {
+                clickedLink.classList.add('active');
+            } else if (clickedLink && clickedLink.closest) {
+                var parentLink = clickedLink.closest('a');
+                if (parentLink && parentLink.classList.contains('nav-link')) {
+                    parentLink.classList.add('active');
+                }
+            }
+        }
     </script>
 </body>
 </html>
