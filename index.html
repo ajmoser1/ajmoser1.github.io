@@ -180,31 +180,72 @@
         .view-container {
             opacity: 0;
             animation: fadeInContent 1s ease-out 4.5s forwards;
+            perspective: 1400px;
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
         }
         
         @keyframes fadeInContent {
             to { opacity: 1; }
         }
         
+        /* All views stack in the same slot so carousel rotation happens in one place */
         .view {
             display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             min-height: 100vh;
             padding: 120px 60px 60px;
+            overflow-y: auto;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
         }
         
         .view.active {
             display: block;
-            animation: viewFadeIn 0.6s ease-out;
+            position: relative;
+            /* Relative when active so container grows with content for scrolling */
         }
         
-        @keyframes viewFadeIn {
-            from {
+        /* When animating, overlay in same slot */
+        .view.view-exit,
+        .view.view-enter {
+            position: absolute !important;
+            display: block !important;
+        }
+        
+        /* Carousel exit: current panel rotates out to the left */
+        .view.view-exit {
+            animation: carouselExit 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-origin: right center;
+            z-index: 2;
+        }
+        
+        @keyframes carouselExit {
+            to {
+                transform: rotateY(-85deg);
                 opacity: 0;
-                transform: translateY(20px);
+            }
+        }
+        
+        /* Carousel enter: new panel rotates in from the right */
+        .view.view-enter {
+            animation: carouselEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-origin: left center;
+            z-index: 1;
+        }
+        
+        @keyframes carouselEnter {
+            from {
+                transform: rotateY(85deg);
+                opacity: 0;
             }
             to {
+                transform: rotateY(0deg);
                 opacity: 1;
-                transform: translateY(0);
             }
         }
         
@@ -865,10 +906,10 @@
                         <p class="project-tech">Python · cmu_graphics · Computer Science</p>
                     </div>
                     
-                    <a href="https://github.com/ajmoser1/crossy.github.io" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <a href="https://ajmoser1.github.io/crossy.github.io/" target="_blank" rel="noopener noreferrer" class="project-card">
                         <h3>Crossy Road</h3>
-                        <p>A Crossy Road–style game built with cmu_graphics. Navigate obstacles, avoid traffic, and see how far you can go. Live on GitHub with full source code.</p>
-                        <p class="project-tech">Python · cmu_graphics · Game Development</p>
+                        <p>A Crossy Road–style game. Navigate obstacles, avoid traffic, and see how far you can go. Click to play; source on GitHub.</p>
+                        <p class="project-tech">JavaScript · Game Development</p>
                     </a>
                 </div>
             </div>
@@ -915,26 +956,48 @@
     
     <!-- JAVASCRIPT -->
     <script>
+        var isAnimating = false;
+        
         function showView(viewId) {
-            document.querySelectorAll('.view').forEach(function(view) {
-                view.classList.remove('active');
-            });
+            if (isAnimating) return;
+            
+            var currentActive = document.querySelector('.view.active');
+            var targetView = document.getElementById(viewId);
+            
+            if (!targetView || currentActive === targetView) return;
+            
+            isAnimating = true;
+            
+            // Update nav link active state immediately
             document.querySelectorAll('.nav-link').forEach(function(link) {
                 link.classList.remove('active');
             });
-            
-            var targetView = document.getElementById(viewId);
-            if (targetView) targetView.classList.add('active');
-            
-            var clickedLink = event && event.target;
+            var clickedLink = event && (event.target.classList && event.target.classList.contains('nav-link') ? event.target : event.target.closest('a'));
             if (clickedLink && clickedLink.classList && clickedLink.classList.contains('nav-link')) {
                 clickedLink.classList.add('active');
-            } else if (clickedLink && clickedLink.closest) {
-                var parentLink = clickedLink.closest('a');
-                if (parentLink && parentLink.classList.contains('nav-link')) {
-                    parentLink.classList.add('active');
-                }
+            } else {
+                var navLinks = document.querySelectorAll('.nav-link');
+                var viewOrder = ['home', 'bio', 'interests', 'skills', 'projects', 'contact'];
+                var idx = viewOrder.indexOf(viewId);
+                if (idx >= 0 && navLinks[idx]) navLinks[idx].classList.add('active');
             }
+            
+            // Phase 1: Current view rotates out (exit to the left)
+            currentActive.classList.remove('active');
+            currentActive.classList.add('view-exit');
+            
+            // Phase 2: After exit animation, show new view rotating in from the right
+            setTimeout(function() {
+                currentActive.classList.remove('view-exit');
+                targetView.classList.add('active', 'view-enter');
+                targetView.scrollTop = 0;
+                
+                // Phase 3: Clean up enter class after animation
+                setTimeout(function() {
+                    targetView.classList.remove('view-enter');
+                    isAnimating = false;
+                }, 500);
+            }, 500);
         }
     </script>
 </body>
