@@ -466,10 +466,26 @@
         }
         
         /* ===== PROJECTS VIEW ===== */
+        .projects-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 40px;
+            align-items: start;
+        }
+        
+        .projects-column-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #dc2626;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        
         .projects-grid {
             display: grid;
             gap: 40px;
-            margin-top: 40px;
         }
         
         .project-card {
@@ -646,6 +662,10 @@
             .intro-image {
                 width: 150px;
                 height: 150px;
+            }
+            
+            .projects-columns {
+                grid-template-columns: 1fr;
             }
             
             .skills-grid {
@@ -875,46 +895,44 @@
                 <h2 class="section-title">Projects</h2>
                 <p class="section-subtitle">Work in progress</p>
                 
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Achieve More Academics</h3>
-                        <p>Founded and operate a private STEM tutoring business with 5+ tutors serving middle school 
-                        and high school students. Lead all aspects of client management, outreach, scheduling, progress 
-                        reporting, and payment processing. Directed marketing through local promotions and digital 
-                        channels to grow student base while maintaining high academic outcomes.</p>
-                        <p class="project-tech">Entrepreneurship · Education · Business Management · Marketing</p>
+                <div class="projects-columns">
+                    <div class="projects-column">
+                        <h3 class="projects-column-title">Coding Projects</h3>
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <h3>CMU Graphics Project</h3>
+                                <p>Computational graphics project built using the cmu_graphics library, exploring 
+                                visual computing and algorithmic problem-solving through Python programming.</p>
+                                <p class="project-tech">Python · cmu_graphics · Computer Science</p>
+                            </div>
+                            <a href="https://ajmoser1.github.io/crossy.github.io/" target="_blank" rel="noopener noreferrer" class="project-card">
+                                <h3>Crossy Road</h3>
+                                <p>A Crossy Road–style game. Navigate obstacles, avoid traffic, and see how far you can go. Click to play; source on GitHub.</p>
+                                <p class="project-tech">JavaScript · Game Development</p>
+                            </a>
+                        </div>
                     </div>
-                    
-                    <div class="project-card">
-                        <h3>A+ Washing</h3>
-                        <p>Founded residential power-washing service for local area. Led and executed marketing and 
-                        outreach strategy including social media promotion and paid advertising. Managed client 
-                        communication, estimates, and logistics. Oversaw workflow optimization, payment processing, 
-                        and customer satisfaction.</p>
-                        <p class="project-tech">Service Business · Marketing · Operations · Customer Relations</p>
+                    <div class="projects-column">
+                        <h3 class="projects-column-title">Entrepreneurial Ventures</h3>
+                        <div class="projects-grid">
+                            <div class="project-card">
+                                <h3>Achieve More Academics</h3>
+                                <p>Founded and operate a private STEM tutoring business with 5+ tutors serving middle school 
+                                and high school students. Lead all aspects of client management, outreach, scheduling, progress 
+                                reporting, and payment processing. Directed marketing through local promotions and digital 
+                                channels to grow student base while maintaining high academic outcomes.</p>
+                                <p class="project-tech">Entrepreneurship · Education · Business Management · Marketing</p>
+                            </div>
+                            <div class="project-card">
+                                <h3>A+ Washing</h3>
+                                <p>Founded residential power-washing service for local area. Led and executed marketing and 
+                                outreach strategy including social media promotion and paid advertising. Managed client 
+                                communication, estimates, and logistics. Oversaw workflow optimization, payment processing, 
+                                and customer satisfaction.</p>
+                                <p class="project-tech">Service Business · Marketing · Operations · Customer Relations</p>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="project-card">
-                        <h3>Private Tutoring Experience</h3>
-                        <p>Applied strategies and methodology gained from Mathnasium to develop tailored lesson plans 
-                        and learning structures for private clients at Dana Stein Academics. Managed communication 
-                        and arranged sessions with 10+ clients simultaneously. Provided critical feedback to students 
-                        and progress updates to parents.</p>
-                        <p class="project-tech">Education · Curriculum Development · Communication</p>
-                    </div>
-                    
-                    <div class="project-card">
-                        <h3>CMU Graphics Project</h3>
-                        <p>Computational graphics project built using the cmu_graphics library, exploring 
-                        visual computing and algorithmic problem-solving through Python programming.</p>
-                        <p class="project-tech">Python · cmu_graphics · Computer Science</p>
-                    </div>
-                    
-                    <a href="https://ajmoser1.github.io/crossy.github.io/" target="_blank" rel="noopener noreferrer" class="project-card">
-                        <h3>Crossy Road</h3>
-                        <p>A Crossy Road–style game. Navigate obstacles, avoid traffic, and see how far you can go. Click to play; source on GitHub.</p>
-                        <p class="project-tech">JavaScript · Game Development</p>
-                    </a>
                 </div>
             </div>
         </div>
