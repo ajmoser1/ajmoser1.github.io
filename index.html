@@ -272,7 +272,11 @@
         }
         
         /* ===== HOME VIEW ===== */
-        #home {
+        /* Hide when not active so #home doesn't override .view's display: none */
+        #home.view {
+            display: none;
+        }
+        #home.view.active {
             display: flex;
             align-items: center;
             justify-content: center;
