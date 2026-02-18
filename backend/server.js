@@ -155,11 +155,11 @@ app.post('/chat', async (req, res) => {
     }
 
     // Get the Gemini model.
-    // gemini-1.5-flash is fast, cheap, and great for conversational use cases.
+    // gemini-2.0-flash is the current fast, cheap model for conversational use cases.
     // The systemInstruction is sent to Gemini BEFORE the conversation starts —
     // it's like giving the AI its role before it talks to the user.
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       systemInstruction: SYSTEM_PROMPT,
     });
 
