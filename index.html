@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alex Moser</title>
-    
+
     <!-- Elegant Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         html {
             scroll-behavior: smooth;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #0a0a0a;
@@ -28,7 +31,7 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-        
+
         /* ===== INTRO ANIMATION ===== */
         #intro-screen {
             position: fixed;
@@ -44,13 +47,13 @@
             flex-direction: column;
             animation: fadeOut 1s ease-in-out 3.5s forwards;
         }
-        
+
         .intro-content {
             text-align: center;
             opacity: 0;
             animation: zoomIn 2s ease-out 0.5s forwards;
         }
-        
+
         .intro-image {
             width: 200px;
             height: 200px;
@@ -60,7 +63,7 @@
             border: 3px solid #dc2626;
             box-shadow: 0 0 40px rgba(220, 38, 38, 0.3);
         }
-        
+
         .intro-name {
             font-family: 'Playfair Display', serif;
             font-size: 4em;
@@ -69,7 +72,7 @@
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
-        
+
         .intro-tagline {
             font-size: 1.2em;
             color: #999;
@@ -77,25 +80,26 @@
             letter-spacing: 3px;
             text-transform: uppercase;
         }
-        
+
         @keyframes zoomIn {
             0% {
                 opacity: 0;
                 transform: scale(0.3);
             }
+
             100% {
                 opacity: 1;
                 transform: scale(1);
             }
         }
-        
+
         @keyframes fadeOut {
             to {
                 opacity: 0;
                 visibility: hidden;
             }
         }
-        
+
         /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
@@ -110,11 +114,13 @@
             opacity: 0;
             animation: fadeInNav 1s ease-out 4s forwards;
         }
-        
+
         @keyframes fadeInNav {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
-        
+
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -122,7 +128,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .nav-logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5em;
@@ -132,17 +138,17 @@
             letter-spacing: 1px;
             transition: color 0.3s ease;
         }
-        
+
         .nav-logo:hover {
             color: #dc2626;
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
             gap: 50px;
         }
-        
+
         .nav-links a {
             color: #e8e8e8;
             text-decoration: none;
@@ -152,7 +158,7 @@
             transition: color 0.3s ease;
             position: relative;
         }
-        
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -163,19 +169,19 @@
             background: #dc2626;
             transition: width 0.3s ease;
         }
-        
+
         .nav-links a:hover {
             color: #dc2626;
         }
-        
+
         .nav-links a:hover::after {
             width: 100%;
         }
-        
+
         .nav-links a.active {
             color: #dc2626;
         }
-        
+
         /* ===== MAIN CONTENT CONTAINER ===== */
         .view-container {
             opacity: 0;
@@ -185,11 +191,13 @@
             position: relative;
             min-height: 100vh;
         }
-        
+
         @keyframes fadeInContent {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
-        
+
         /* All views stack in the same slot so carousel rotation happens in one place */
         .view {
             display: none;
@@ -203,57 +211,58 @@
             transform-style: preserve-3d;
             backface-visibility: hidden;
         }
-        
+
         .view.active {
             display: block;
             position: relative;
             /* Relative when active so container grows with content for scrolling */
         }
-        
+
         /* When animating, overlay in same slot */
         .view.view-exit,
         .view.view-enter {
             position: absolute !important;
             display: block !important;
         }
-        
+
         /* Carousel exit: current panel rotates out to the left */
         .view.view-exit {
             animation: carouselExit 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             transform-origin: right center;
             z-index: 2;
         }
-        
+
         @keyframes carouselExit {
             to {
                 transform: rotateY(-85deg);
                 opacity: 0;
             }
         }
-        
+
         /* Carousel enter: new panel rotates in from the right */
         .view.view-enter {
             animation: carouselEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             transform-origin: left center;
             z-index: 1;
         }
-        
+
         @keyframes carouselEnter {
             from {
                 transform: rotateY(85deg);
                 opacity: 0;
             }
+
             to {
                 transform: rotateY(0deg);
                 opacity: 1;
             }
         }
-        
+
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         /* ===== TYPOGRAPHY ===== */
         .section-title {
             font-family: 'Playfair Display', serif;
@@ -263,30 +272,31 @@
             margin-bottom: 20px;
             letter-spacing: 1px;
         }
-        
+
         .section-subtitle {
             font-size: 1.2em;
             color: #999;
             margin-bottom: 60px;
             font-weight: 300;
         }
-        
+
         /* ===== HOME VIEW ===== */
         /* Hide when not active so #home doesn't override .view's display: none */
         #home.view {
             display: none;
         }
+
         #home.view.active {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .home-content {
             text-align: center;
             max-width: 800px;
         }
-        
+
         .home-image {
             width: 300px;
             height: 300px;
@@ -297,12 +307,12 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        
+
         .home-image:hover {
             transform: scale(1.02);
             box-shadow: 0 25px 80px rgba(220, 38, 38, 0.2);
         }
-        
+
         .home-title {
             font-family: 'Playfair Display', serif;
             font-size: 5em;
@@ -311,21 +321,21 @@
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
-        
+
         .home-tagline {
             font-size: 1.5em;
             color: #dc2626;
             margin-bottom: 30px;
             font-weight: 400;
         }
-        
+
         .home-description {
             font-size: 1.1em;
             color: #b3b3b3;
             line-height: 1.8;
             margin-bottom: 50px;
         }
-        
+
         .cta-link {
             display: inline-block;
             color: #e8e8e8;
@@ -336,13 +346,13 @@
             transition: all 0.3s ease;
             letter-spacing: 1px;
         }
-        
+
         .cta-link:hover {
             color: #dc2626;
             border-bottom-color: #dc2626;
             padding-left: 10px;
         }
-        
+
         /* ===== BIO VIEW ===== */
         .bio-grid {
             display: grid;
@@ -351,31 +361,31 @@
             align-items: start;
             margin-top: 40px;
         }
-        
+
         .bio-text {
             font-size: 1.1em;
             color: #b3b3b3;
             line-height: 1.9;
         }
-        
+
         .bio-text p {
             margin-bottom: 20px;
         }
-        
+
         .bio-highlight {
             background: rgba(220, 38, 38, 0.1);
             border-left: 3px solid #dc2626;
             padding: 30px;
             margin-top: 30px;
         }
-        
+
         .bio-highlight h3 {
             font-family: 'Playfair Display', serif;
             color: #ffffff;
             margin-bottom: 15px;
             font-size: 1.5em;
         }
-        
+
         /* ===== INTERESTS VIEW ===== */
         .interests-grid {
             display: grid;
@@ -383,7 +393,7 @@
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .interest-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -392,7 +402,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .interest-card::before {
             content: '';
             position: absolute;
@@ -403,29 +413,29 @@
             background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.05), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .interest-card:hover::before {
             left: 100%;
         }
-        
+
         .interest-card:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(220, 38, 38, 0.3);
             transform: translateY(-5px);
         }
-        
+
         .interest-icon {
             font-size: 2.5em;
             margin-bottom: 15px;
             display: block;
         }
-        
+
         .interest-name {
             font-size: 1.2em;
             color: #e8e8e8;
             font-weight: 500;
         }
-        
+
         /* ===== SKILLS VIEW ===== */
         .skills-grid {
             display: grid;
@@ -433,7 +443,7 @@
             gap: 25px;
             margin-top: 40px;
         }
-        
+
         .skill-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -441,30 +451,30 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .skill-card:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(220, 38, 38, 0.3);
             transform: translateY(-3px);
         }
-        
+
         .skill-icon {
             font-size: 2.5em;
             margin-bottom: 12px;
             display: block;
             transition: transform 0.3s ease;
         }
-        
+
         .skill-card:hover .skill-icon {
             transform: scale(1.1);
         }
-        
+
         .skill-name {
             font-size: 1em;
             color: #e8e8e8;
             font-weight: 400;
         }
-        
+
         /* ===== PROJECTS VIEW ===== */
         .projects-columns {
             display: grid;
@@ -473,7 +483,7 @@
             margin-top: 40px;
             align-items: start;
         }
-        
+
         .projects-column-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.5em;
@@ -482,12 +492,12 @@
             letter-spacing: 0.5px;
             font-weight: 600;
         }
-        
+
         .projects-grid {
             display: grid;
             gap: 40px;
         }
-        
+
         .project-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -496,14 +506,14 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         a.project-card {
             display: block;
             text-decoration: none;
             color: inherit;
             cursor: pointer;
         }
-        
+
         .project-card::after {
             content: '';
             position: absolute;
@@ -514,37 +524,37 @@
             background: #dc2626;
             transition: width 0.4s ease;
         }
-        
+
         .project-card:hover::after {
             width: 100%;
         }
-        
+
         .project-card:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(220, 38, 38, 0.2);
             transform: translateX(10px);
         }
-        
+
         .project-card h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2em;
             color: #ffffff;
             margin-bottom: 15px;
         }
-        
+
         .project-card p {
             color: #b3b3b3;
             line-height: 1.8;
             margin-bottom: 15px;
         }
-        
+
         .project-tech {
             color: #dc2626;
             font-size: 0.9em;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
-        
+
         /* ===== CONTACT VIEW ===== */
         .contact-grid {
             display: grid;
@@ -552,7 +562,7 @@
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .contact-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -563,7 +573,7 @@
             display: block;
             position: relative;
         }
-        
+
         .contact-card::before {
             content: '';
             position: absolute;
@@ -574,28 +584,28 @@
             background: #dc2626;
             transition: height 0.3s ease;
         }
-        
+
         .contact-card:hover::before {
             height: 100%;
         }
-        
+
         .contact-card:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(220, 38, 38, 0.3);
             transform: translateX(5px);
         }
-        
+
         .contact-icon {
             font-size: 2em;
             margin-bottom: 15px;
             display: block;
             transition: transform 0.3s ease;
         }
-        
+
         .contact-card:hover .contact-icon {
             transform: scale(1.1);
         }
-        
+
         .contact-label {
             font-size: 0.85em;
             color: #999;
@@ -603,13 +613,13 @@
             letter-spacing: 1.5px;
             margin-bottom: 8px;
         }
-        
+
         .contact-value {
             font-size: 1.1em;
             color: #e8e8e8;
             word-break: break-all;
         }
-        
+
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
@@ -618,62 +628,277 @@
             color: #666;
             font-size: 0.9em;
         }
-        
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             nav {
                 padding: 15px 30px;
             }
-            
+
             .nav-links {
                 gap: 25px;
             }
-            
+
             .nav-links a {
                 font-size: 0.85em;
             }
-            
+
             .view {
                 padding: 100px 30px 40px;
             }
-            
+
             .section-title {
                 font-size: 2.5em;
             }
-            
+
             .home-title {
                 font-size: 3em;
             }
-            
+
             .home-image {
                 width: 200px;
                 height: 200px;
             }
-            
+
             .bio-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
-            
+
             .intro-name {
                 font-size: 2.5em;
             }
-            
+
             .intro-image {
                 width: 150px;
                 height: 150px;
             }
-            
+
             .projects-columns {
                 grid-template-columns: 1fr;
             }
-            
+
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .project-card {
                 padding: 30px;
+            }
+        }
+
+        /* ===== CHATBOT ===== */
+
+        /* The floating button that opens/closes the chat panel.
+           "position: fixed" keeps it in the same corner of the screen
+           no matter where you scroll. z-index: 9000 keeps it on top of everything. */
+        #chat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #dc2626;
+            border: none;
+            cursor: pointer;
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Fade in at the same time as the nav (after the intro animation) */
+            opacity: 0;
+            animation: fadeInNav 1s ease-out 4s forwards;
+        }
+
+        #chat-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(220, 38, 38, 0.6);
+        }
+
+        #chat-btn svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+        }
+
+        /* The chat panel itself. It starts invisible and slightly below its
+           final position. When the .open class is added via JavaScript,
+           the CSS transition animates it up and into view. */
+        #chat-panel {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 360px;
+            max-height: 520px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            z-index: 9000;
+            /* Hidden by default — JS adds .open to show it */
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* When .open is added by JavaScript, the panel slides in */
+        #chat-panel.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chat-header {
+            padding: 18px 20px;
+            background: rgba(220, 38, 38, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .chat-header-text h3 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        .chat-header-text p {
+            color: #666;
+            font-size: 0.78em;
+            margin-top: 2px;
+        }
+
+        #chat-close {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.4em;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        #chat-close:hover {
+            color: #dc2626;
+        }
+
+        /* The scrollable message list. flex-direction: column means messages
+           stack downward, with the newest at the bottom — standard chat layout. */
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 200px;
+            max-height: 340px;
+        }
+
+        /* Shared style for all message bubbles */
+        .chat-msg {
+            max-width: 82%;
+            padding: 10px 14px;
+            font-size: 0.88em;
+            line-height: 1.55;
+        }
+
+        /* User messages: red tint, aligned to the right */
+        .chat-msg.user {
+            background: rgba(220, 38, 38, 0.14);
+            border: 1px solid rgba(220, 38, 38, 0.22);
+            color: #e8e8e8;
+            align-self: flex-end;
+        }
+
+        /* Bot (Alex) messages: dark, aligned to the left */
+        .chat-msg.bot {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            color: #b3b3b3;
+            align-self: flex-start;
+        }
+
+        /* "Alex is typing..." shown while waiting for Gemini to respond */
+        .chat-msg.typing {
+            color: #555;
+            font-style: italic;
+        }
+
+        .chat-input-area {
+            padding: 14px 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        #chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e8e8e8;
+            padding: 10px 13px;
+            font-size: 0.88em;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            resize: none;
+            line-height: 1.4;
+            transition: border-color 0.2s;
+        }
+
+        #chat-input:focus {
+            border-color: rgba(220, 38, 38, 0.4);
+        }
+
+        #chat-input::placeholder {
+            color: #444;
+        }
+
+        #chat-send {
+            background: #dc2626;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 0.88em;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        #chat-send:hover {
+            background: #b91c1c;
+        }
+
+        #chat-send:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        /* Mobile: full-width panel on small screens */
+        @media (max-width: 500px) {
+            #chat-panel {
+                width: calc(100vw - 20px);
+                right: 10px;
+                bottom: 85px;
+            }
+            #chat-btn {
+                bottom: 18px;
+                right: 18px;
+                width: 52px;
+                height: 52px;
             }
         }
     </style>
@@ -688,7 +913,7 @@
             <p class="intro-tagline">Student · Athlete · Founder</p>
         </div>
     </div>
-    
+
     <!-- NAVIGATION -->
     <nav>
         <div class="nav-container">
@@ -703,10 +928,10 @@
             </ul>
         </div>
     </nav>
-    
+
     <!-- MAIN CONTENT -->
     <div class="view-container">
-        
+
         <!-- HOME VIEW -->
         <div id="home" class="view active">
             <div class="home-content">
@@ -714,55 +939,55 @@
                 <h1 class="home-title">Alex Moser</h1>
                 <p class="home-tagline">ECE Student Athlete at Carnegie Mellon</p>
                 <p class="home-description">
-                    Relentlessly driven to learn, improve, and solve problems. Growth mindset with an entrepreneur's 
+                    Relentlessly driven to learn, improve, and solve problems. Growth mindset with an entrepreneur's
                     agency and bias for action. Building ventures, breaking records, and creating measurable value.
                 </p>
                 <a href="#" class="cta-link" onclick="showView('bio'); return false;">Explore my journey →</a>
             </div>
         </div>
-        
+
         <!-- BIO VIEW -->
         <div id="bio" class="view">
             <div class="content-wrapper">
                 <h2 class="section-title">Biography</h2>
                 <p class="section-subtitle">Chicago-born, Carnegie Mellon-bound</p>
-                
+
                 <div class="bio-grid">
                     <div class="bio-text">
                         <p>
-                            I'm an Electrical & Computer Engineering student-athlete at Carnegie Mellon, relentlessly 
-                            driven to learn, improve, and solve problems. With a growth mindset and an entrepreneur's 
-                            agency and bias for action, I thrive in fast-moving environments where I can experiment, 
+                            I'm an Electrical & Computer Engineering student-athlete at Carnegie Mellon, relentlessly
+                            driven to learn, improve, and solve problems. With a growth mindset and an entrepreneur's
+                            agency and bias for action, I thrive in fast-moving environments where I can experiment,
                             iterate quickly, and create measurable value.
                         </p>
                         <p>
-                            As the founder of Achieve More Academics, I built a STEM tutoring business with 5+ tutors 
-                            serving middle school and high school students. I handle all aspects from client management 
-                            and marketing to progress reporting and payment processing, while delivering personalized 
+                            As the founder of Achieve More Academics, I built a STEM tutoring business with 5+ tutors
+                            serving middle school and high school students. I handle all aspects from client management
+                            and marketing to progress reporting and payment processing, while delivering personalized
                             tutoring sessions that maintain high academic outcomes.
                         </p>
                         <p>
-                            Previously, I founded A+ Washing, a residential power-washing service, where I led marketing 
-                            strategy, managed client communications, and oversaw workflow optimization. I'm fluent in 
-                            using AI tools to optimize academic productivity and advance business ventures, combining 
+                            Previously, I founded A+ Washing, a residential power-washing service, where I led marketing
+                            strategy, managed client communications, and oversaw workflow optimization. I'm fluent in
+                            using AI tools to optimize academic productivity and advance business ventures, combining
                             technical literacy with entrepreneurial execution.
                         </p>
                     </div>
-                    
+
                     <div>
                         <div class="bio-highlight">
                             <h3>Leadership & Growth</h3>
                             <p style="color: #b3b3b3; line-height: 1.8;">
-                                John O. Mosely Leadership School Graduate with strong communication and leadership 
-                                skills. Maintaining academic discipline and excellency in a rigorous course load 
+                                John O. Mosely Leadership School Graduate with strong communication and leadership
+                                skills. Maintaining academic discipline and excellency in a rigorous course load
                                 while balancing athletic competitiveness and time management as an NCAA Student Athlete.
                             </p>
                         </div>
-                        
+
                         <div class="bio-highlight" style="margin-top: 30px;">
                             <h3>Involvements</h3>
                             <p style="color: #b3b3b3; line-height: 1.8;">
-                                Sigma Alpha Epsilon Fraternity · Swartz Center for Entrepreneurship · 
+                                Sigma Alpha Epsilon Fraternity · Swartz Center for Entrepreneurship ·
                                 CMU Track & Field · John O. Mosely Leadership School
                             </p>
                         </div>
@@ -770,13 +995,13 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- INTERESTS VIEW -->
         <div id="interests" class="view">
             <div class="content-wrapper">
                 <h2 class="section-title">Interests</h2>
                 <p class="section-subtitle">What drives me beyond the classroom</p>
-                
+
                 <div class="interests-grid">
                     <div class="interest-card">
                         <span class="interest-icon">🏃‍♂️</span>
@@ -819,23 +1044,19 @@
                         <div class="interest-name">Chicago Bears</div>
                     </div>
                     <div class="interest-card">
-                        <span class="interest-icon">🎯</span>
-                        <div class="interest-name">Building Scalable Solutions</div>
-                    </div>
-                    <div class="interest-card">
                         <span class="interest-icon">🤖</span>
                         <div class="interest-name">AI & Productivity</div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- SKILLS VIEW -->
         <div id="skills" class="view">
             <div class="content-wrapper">
                 <h2 class="section-title">Skills</h2>
                 <p class="section-subtitle">Technical and personal capabilities</p>
-                
+
                 <div class="skills-grid">
                     <div class="skill-card">
                         <span class="skill-icon">⚡</span>
@@ -888,26 +1109,28 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- PROJECTS VIEW -->
         <div id="projects" class="view">
             <div class="content-wrapper">
                 <h2 class="section-title">Projects</h2>
                 <p class="section-subtitle">Work in progress</p>
-                
+
                 <div class="projects-columns">
                     <div class="projects-column">
                         <h3 class="projects-column-title">Coding Projects</h3>
                         <div class="projects-grid">
                             <div class="project-card">
                                 <h3>CMU Graphics Project</h3>
-                                <p>Computational graphics project built using the cmu_graphics library, exploring 
-                                visual computing and algorithmic problem-solving through Python programming.</p>
+                                <p>Computational graphics project built using the cmu_graphics library, exploring
+                                    visual computing and algorithmic problem-solving through Python programming.</p>
                                 <p class="project-tech">Python · cmu_graphics · Computer Science</p>
                             </div>
-                            <a href="https://ajmoser1.github.io/crossy.github.io/" target="_blank" rel="noopener noreferrer" class="project-card">
+                            <a href="https://ajmoser1.github.io/crossy.github.io/" target="_blank"
+                                rel="noopener noreferrer" class="project-card">
                                 <h3>Crossy Road</h3>
-                                <p>A Crossy Road–style game. Navigate obstacles, avoid traffic, and see how far you can go. Click to play; source on GitHub.</p>
+                                <p>A Crossy Road–style game. Navigate obstacles, avoid traffic, and see how far you can
+                                    go. Click to play; source on GitHub.</p>
                                 <p class="project-tech">JavaScript · Game Development</p>
                             </a>
                         </div>
@@ -916,33 +1139,43 @@
                         <h3 class="projects-column-title">Entrepreneurial Ventures</h3>
                         <div class="projects-grid">
                             <div class="project-card">
+                                <a href="https://achieve-more-academics.netlify.app/" target="_blank"
+                                    rel="noopener noreferrer" class="project-card"></a>
                                 <h3>Achieve More Academics</h3>
-                                <p>Founded and operate a private STEM tutoring business with 5+ tutors serving middle school 
-                                and high school students. Lead all aspects of client management, outreach, scheduling, progress 
-                                reporting, and payment processing. Directed marketing through local promotions and digital 
-                                channels to grow student base while maintaining high academic outcomes.</p>
-                                <p class="project-tech">Entrepreneurship · Education · Business Management · Marketing</p>
+                                <p>Founded and operate a private STEM tutoring business with 5+ tutors serving middle
+                                    school
+                                    and high school students. Lead all aspects of client management, outreach,
+                                    scheduling, progress
+                                    reporting, and payment processing. Directed marketing through local promotions and
+                                    digital
+                                    channels to grow student base while maintaining high academic outcomes.</p>
+                                <p class="project-tech">Entrepreneurship · Education · Business Management · Marketing
+                                </p>
                             </div>
                             <div class="project-card">
                                 <h3>A+ Washing</h3>
-                                <p>Founded residential power-washing service for local area. Led and executed marketing and 
-                                outreach strategy including social media promotion and paid advertising. Managed client 
-                                communication, estimates, and logistics. Oversaw workflow optimization, payment processing, 
-                                and customer satisfaction.</p>
-                                <p class="project-tech">Service Business · Marketing · Operations · Customer Relations</p>
+                                <p>Founded residential power-washing service for local area. Led and executed marketing
+                                    and
+                                    outreach strategy including social media promotion and paid advertising. Managed
+                                    client
+                                    communication, estimates, and logistics. Oversaw workflow optimization, payment
+                                    processing,
+                                    and customer satisfaction.</p>
+                                <p class="project-tech">Service Business · Marketing · Operations · Customer Relations
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- CONTACT VIEW -->
         <div id="contact" class="view">
             <div class="content-wrapper">
                 <h2 class="section-title">Contact</h2>
                 <p class="section-subtitle">Let's connect</p>
-                
+
                 <div class="contact-grid">
                     <a href="mailto:ajmoser@andrew.cmu.edu" class="contact-card">
                         <span class="contact-icon">📧</span>
@@ -954,12 +1187,14 @@
                         <div class="contact-label">Personal Email</div>
                         <div class="contact-value">amoser188@gmail.com</div>
                     </a>
-                    <a href="https://github.com/ajmoser1" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <a href="https://github.com/ajmoser1" target="_blank" rel="noopener noreferrer"
+                        class="contact-card">
                         <span class="contact-icon">💻</span>
                         <div class="contact-label">GitHub</div>
                         <div class="contact-value">github.com/ajmoser1</div>
                     </a>
-                    <a href="https://linkedin.com/in/alex-moser-34059927a/" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <a href="https://linkedin.com/in/alex-moser-34059927a/" target="_blank" rel="noopener noreferrer"
+                        class="contact-card">
                         <span class="contact-icon">💼</span>
                         <div class="contact-label">LinkedIn</div>
                         <div class="contact-value">linkedin.com/in/alex-moser-34059927a</div>
@@ -967,31 +1202,78 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
-    
+
+    <!-- ============================================================
+         CHATBOT
+         This HTML is the structure of the floating chat widget.
+         It's hidden by default — JavaScript shows/hides it.
+         ============================================================ -->
+
+    <!-- The circular button in the bottom-right corner -->
+    <button id="chat-btn" aria-label="Chat with Alex">
+        <!-- SVG chat bubble icon (inline SVG so no image request needed) -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+    </button>
+
+    <!-- The sliding chat panel (hidden until user clicks the button) -->
+    <div id="chat-panel" role="dialog" aria-label="Chat with Alex">
+        <div class="chat-header">
+            <div class="chat-header-text">
+                <h3>Chat with Alex</h3>
+                <p>AI-powered · Ask me anything</p>
+            </div>
+            <!-- × close button -->
+            <button id="chat-close" aria-label="Close chat">&times;</button>
+        </div>
+
+        <!-- Message list — new messages are appended here by JavaScript -->
+        <div id="chat-messages">
+            <!-- Opening greeting from "Alex" — visible immediately when panel opens -->
+            <div class="chat-msg bot">
+                Hey! I'm an AI version of Alex. Ask me about my background, CMU, athletics, my businesses — anything you're curious about.
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <!-- textarea lets users type multi-line messages if they want;
+                 pressing Enter sends the message (Shift+Enter = new line) -->
+            <textarea
+                id="chat-input"
+                placeholder="Ask Alex something..."
+                rows="1"
+                aria-label="Your message"
+            ></textarea>
+            <button id="chat-send">Send</button>
+        </div>
+    </div>
+
+
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Alex Moser. Crafted with precision.</p>
     </footer>
-    
+
     <!-- JAVASCRIPT -->
     <script>
         var isAnimating = false;
-        
+
         function showView(viewId) {
             if (isAnimating) return;
-            
+
             var currentActive = document.querySelector('.view.active');
             var targetView = document.getElementById(viewId);
-            
+
             if (!targetView || currentActive === targetView) return;
-            
+
             isAnimating = true;
-            
+
             // Update nav link active state immediately
-            document.querySelectorAll('.nav-link').forEach(function(link) {
+            document.querySelectorAll('.nav-link').forEach(function (link) {
                 link.classList.remove('active');
             });
             var clickedLink = event && (event.target.classList && event.target.classList.contains('nav-link') ? event.target : event.target.closest('a'));
@@ -1003,24 +1285,159 @@
                 var idx = viewOrder.indexOf(viewId);
                 if (idx >= 0 && navLinks[idx]) navLinks[idx].classList.add('active');
             }
-            
+
             // Phase 1: Current view rotates out (exit to the left)
             currentActive.classList.remove('active');
             currentActive.classList.add('view-exit');
-            
+
             // Phase 2: After exit animation, show new view rotating in from the right
-            setTimeout(function() {
+            setTimeout(function () {
                 currentActive.classList.remove('view-exit');
                 targetView.classList.add('active', 'view-enter');
                 targetView.scrollTop = 0;
-                
+
                 // Phase 3: Clean up enter class after animation
-                setTimeout(function() {
+                setTimeout(function () {
                     targetView.classList.remove('view-enter');
                     isAnimating = false;
                 }, 500);
             }, 500);
         }
+
+
+        // ============================================================
+        // CHATBOT JAVASCRIPT
+        //
+        // This glues the chat UI to your backend server on Render.com.
+        //
+        // The flow for every message:
+        //   1. User types and hits Send (or Enter)
+        //   2. We display their message in the chat window immediately
+        //   3. We send it to your backend server via fetch() — an HTTP POST request
+        //   4. The backend calls Gemini and waits for a response
+        //   5. We display Gemini's response in the chat window
+        //
+        // IMPORTANT: Update BACKEND_URL after you deploy to Render.com
+        // ============================================================
+
+        // ▼▼▼ REPLACE THIS after deploying to Render ▼▼▼
+        // It will look like: 'https://alex-chatbot-xxxx.onrender.com'
+        var BACKEND_URL = 'https://YOUR-RENDER-APP-NAME.onrender.com';
+        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+        // We keep the conversation history so Gemini remembers context.
+        // Each item: { role: 'user' | 'assistant', content: 'message text' }
+        var chatHistory = [];
+        var isChatLoading = false;
+
+        // Grab references to the DOM elements we'll interact with
+        var chatBtn      = document.getElementById('chat-btn');
+        var chatPanel    = document.getElementById('chat-panel');
+        var chatClose    = document.getElementById('chat-close');
+        var chatInput    = document.getElementById('chat-input');
+        var chatSend     = document.getElementById('chat-send');
+        var chatMessages = document.getElementById('chat-messages');
+
+        // Toggle the chat panel open/closed when the button is clicked.
+        // classList.toggle adds the class if it's missing, removes it if it's there.
+        chatBtn.addEventListener('click', function () {
+            chatPanel.classList.toggle('open');
+            if (chatPanel.classList.contains('open')) {
+                chatInput.focus(); // auto-focus so user can type right away
+            }
+        });
+
+        chatClose.addEventListener('click', function () {
+            chatPanel.classList.remove('open');
+        });
+
+        // Send on Enter; Shift+Enter inserts a newline instead (standard chat UX)
+        chatInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // stop the default newline from being added
+                sendChatMessage();
+            }
+        });
+
+        chatSend.addEventListener('click', sendChatMessage);
+
+        // Helper: create a message bubble and append it to the chat window
+        function addChatMessage(content, role) {
+            var msg = document.createElement('div');
+            msg.classList.add('chat-msg', role === 'user' ? 'user' : 'bot');
+            msg.textContent = content;
+            chatMessages.appendChild(msg);
+            // Scroll down so the newest message is always visible
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return msg; // return the element so we can remove it later (typing indicator)
+        }
+
+        // The main send function — called when user hits Send or Enter
+        async function sendChatMessage() {
+            var text = chatInput.value.trim();
+            if (!text || isChatLoading) return; // ignore empty messages or double-sends
+
+            // Lock the UI while waiting for a response
+            chatInput.value = '';
+            isChatLoading = true;
+            chatSend.disabled = true;
+
+            // Show the user's message right away (don't wait for the server)
+            addChatMessage(text, 'user');
+
+            // Show a "typing" indicator so the user knows something is happening
+            var typingEl = addChatMessage('Alex is typing...', 'bot');
+            typingEl.classList.add('typing');
+
+            // Record user message in history BEFORE sending (for context)
+            chatHistory.push({ role: 'user', content: text });
+
+            try {
+                // fetch() is the browser's built-in way to make HTTP requests.
+                // We're doing a POST request to your backend, sending JSON.
+                var response = await fetch(BACKEND_URL + '/chat', {
+                    method: 'POST',
+                    headers: {
+                        // Tell the server we're sending JSON-formatted data
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: text,
+                        // Send prior history (all except the message we just added)
+                        // so Gemini remembers the conversation context
+                        history: chatHistory.slice(0, -1)
+                    })
+                });
+
+                // response.json() reads and parses the JSON the server sent back
+                var data = await response.json();
+
+                // Remove the "typing..." bubble now that we have a real response
+                typingEl.remove();
+
+                if (data.response) {
+                    addChatMessage(data.response, 'bot');
+                    // Store Alex's response in history for future context
+                    chatHistory.push({ role: 'assistant', content: data.response });
+                } else {
+                    addChatMessage('Sorry, something went wrong. Try again?', 'bot');
+                }
+
+            } catch (err) {
+                // This runs if the network request itself fails
+                // (e.g., server is down, no internet, wrong URL)
+                typingEl.remove();
+                addChatMessage('Could not reach the server. Check back later.', 'bot');
+                chatHistory.pop(); // remove the message we couldn't send
+                console.error('Chat fetch error:', err);
+            }
+
+            // Unlock the UI
+            isChatLoading = false;
+            chatSend.disabled = false;
+            chatInput.focus();
+        }
     </script>
 </body>
+
 </html>

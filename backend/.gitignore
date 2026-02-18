@@ -1,0 +1,9 @@
+# node_modules is the folder where npm downloads your dependencies.
+# It can be hundreds of MB — never commit it. Render runs "npm install"
+# automatically to recreate it on the server.
+node_modules/
+
+# .env holds your secret API keys for LOCAL development only.
+# Render uses its own environment variable system (set in the dashboard),
+# so this file should never go to GitHub. NEVER remove this line.
+.env
