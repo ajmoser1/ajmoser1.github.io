@@ -7,23 +7,23 @@
 //   outside the browser — on a real server instead of just a webpage.
 //
 // WHY IS IT ON A SEPARATE SERVER?
-//   Your Gemini API key is a secret (like a password). If it were in
+//   Your OpenAI API key is a secret (like a password). If it were in
 //   your index.html, anyone could open browser DevTools and steal it.
 //   This server holds the key and acts as the secure "middleman":
 //
-//   Browser  →  [POST /chat]  →  This server  →  Gemini API
+//   Browser  →  [POST /chat]  →  This server  →  OpenAI API
 //                                                       ↓
-//   Browser  ←  AI response  ←  This server  ←  Gemini API
+//   Browser  ←  AI response  ←  This server  ←  OpenAI API
 //
 // HOW TO RUN LOCALLY (FOR TESTING):
 //   1. Create a file called `.env` in this folder with:
-//        GEMINI_API_KEY=your_key_here
+//        OPENAI_API_KEY=your_key_here
 //   2. Run:  npm install
 //   3. Run:  node server.js
 //   4. Server starts at http://localhost:3000
 // ============================================================
 
-// dotenv loads your .env file so process.env.GEMINI_API_KEY works locally.
+// dotenv loads your .env file so process.env.OPENAI_API_KEY works locally.
 // On Render.com the variable is set in the dashboard — dotenv does nothing there (that's fine).
 require('dotenv').config();
 
@@ -36,8 +36,8 @@ const express = require('express');
 // We need to tell the server to explicitly allow requests from your GitHub Pages domain.
 const cors = require('cors');
 
-// The official Google AI client library for Node.js.
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+// The official OpenAI client library for Node.js.
+const OpenAI = require('openai');
 
 // --- App setup ---
 const app = express();
@@ -69,15 +69,15 @@ app.use(cors(corsOptions));
 // into a real JavaScript object you can access via req.body.message.
 app.use(express.json());
 
-// Initialize the Gemini client.
-// process.env.GEMINI_API_KEY reads the secret key from the environment —
+// Initialize the OpenAI client.
+// process.env.OPENAI_API_KEY reads the secret key from the environment —
 // never hardcode the actual key string here!
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // ============================================================
 // SYSTEM PROMPT
 //
-// This is the "persona" instruction sent to Gemini before every
+// This is the "persona" instruction sent to OpenAI before every
 // conversation. It defines who the AI is and how it should behave.
 // Think of it like a job briefing you give an employee before their shift.
 //
@@ -139,7 +139,7 @@ app.get('/health', (req, res) => {
 //   GET  — fetch/read data (like loading a webpage)
 //   POST — send data to the server (like submitting a form or, here, sending a message)
 //
-// The function is "async" because calling the Gemini API takes time (network request).
+// The function is "async" because calling the OpenAI API takes time (network request).
 // We use "await" to pause and wait for the result before continuing.
 // ============================================================
 app.post('/chat', async (req, res) => {
@@ -155,30 +155,27 @@ app.post('/chat', async (req, res) => {
       return res.status(400).json({ error: 'Message is required.' });
     }
 
-    // Get the Gemini model.
-    // gemini-2.0-flash is the current fast, cheap model for conversational use cases.
-    // The systemInstruction is sent to Gemini BEFORE the conversation starts —
-    // it's like giving the AI its role before it talks to the user.
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash',
-      systemInstruction: SYSTEM_PROMPT,
+    // Build the messages array for OpenAI.
+    // OpenAI uses a simple list of { role, content } objects:
+    //   'system'    — the persona instruction (SYSTEM_PROMPT), sent first
+    //   'user'      — messages from the visitor
+    //   'assistant' — previous responses from the AI
+    // This is cleaner than Gemini's format — no conversion needed.
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history.map(msg => ({ role: msg.role, content: msg.content })),
+      { role: 'user', content: message.trim() },
+    ];
+
+    // Call the OpenAI API. gpt-4o-mini is fast, cheap, and great for chat.
+    // The whole conversation (system prompt + history + new message) is sent each time
+    // so the model has full context of what's been said.
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: messages,
     });
 
-    // Gemini's chat history format uses roles 'user' and 'model'.
-    // We store history in our format ('user'/'assistant'), so convert it here.
-    const chatHistory = history.map(msg => ({
-      role: msg.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: msg.content }],
-    }));
-
-    // Start a chat session. Passing the history means Gemini remembers
-    // what was said earlier in the conversation.
-    const chat = model.startChat({ history: chatHistory });
-
-    // Send the user's new message and wait for Gemini's response.
-    // This is the actual API call — it goes out to Google's servers.
-    const result = await chat.sendMessage(message.trim());
-    const responseText = result.response.text();
+    const responseText = completion.choices[0].message.content;
 
     // Send the response back to the browser as JSON.
     // Default HTTP status is 200 (OK), so we don't need to specify it.
@@ -187,7 +184,7 @@ app.post('/chat', async (req, res) => {
   } catch (error) {
     // If anything goes wrong (API error, network issue, etc.), log it on the server
     // and send a clean error message back — never expose raw error details to the browser.
-    console.error('Error calling Gemini:', error.message);
+    console.error('Error calling OpenAI:', error.message);
 
     // HTTP 500 = "Internal Server Error"
     res.status(500).json({ error: 'Something went wrong. Please try again in a moment.' });

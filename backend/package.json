@@ -1,7 +1,7 @@
 {
   "name": "alex-chatbot-backend",
   "version": "1.0.0",
-  "description": "Backend server for Alex Moser's AI chatbot — sits between the portfolio site and the Gemini API.",
+  "description": "Backend server for Alex Moser's AI chatbot — sits between the portfolio site and the OpenAI API.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,7 +10,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.21.0",
+    "openai": "^4.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
